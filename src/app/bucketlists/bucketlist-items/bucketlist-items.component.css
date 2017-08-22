@@ -1,0 +1,51 @@
+.bucket-detail-holder {
+    float: left;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    box-shadow: -10px 10px 5px #888888;
+    border: 1px solid silver;
+    padding: 5px;
+}
+
+.close {
+    float: right;
+}
+
+.title {
+    float: left;
+}
+
+.bucket-items-holder {
+    clear: both;
+}
+
+.bucket-items-holder li {
+    margin-bottom: 5px;
+    list-style-type: square;
+}
+
+.item-title {
+    float: left;
+}
+
+.item-tools {
+    float: right;
+    margin-right: 5px;
+}
+
+.tool {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.tool.delete {
+    color: red;
+}
