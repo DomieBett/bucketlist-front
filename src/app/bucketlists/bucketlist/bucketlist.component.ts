@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { BucketlistsService } from './../services/bucketlists.service';
+
+
 @Component({
   selector: 'app-bucketlist',
   templateUrl: './bucketlist.component.html',
@@ -7,9 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BucketlistsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private bucketlistService: BucketlistsService) { }
 
   ngOnInit() {
+    
   }
-
 }

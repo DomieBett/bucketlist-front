@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   model: any = {};
+  message: string = this.authService.message;
 
   constructor(
     private router: Router,

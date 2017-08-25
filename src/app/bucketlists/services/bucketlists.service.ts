@@ -3,54 +3,48 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http'
 import { Router } from '@angular/router';
 
 import { BucketList, Items } from './../../models/bucketlist';
+import { GlobalService } from './global.services';
 
 
 @Injectable()
 export class BucketlistsService {
 
   bktlists: BucketList[] = [];
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: Http,
+    private router: Router,
+    private globalService: GlobalService
+  ) { }
 
-  parseItems(bucketlist): Items[]{
+  addBucketlists(name: string) {
 
-    var items = []
+    let options = this.globalService.getToken()
+    
+    if (options){
+      this.http.post('http://127.0.0.1:5000/api/v1/bucketlists/', {name: name}, options)
+        .subscribe(res => {
+          var bucketlists = res.json()
 
-    for (var i = 0; i < bucketlist.items.length; i++) {
-      var item = bucketlist.items[i];
-      var item_data = {
-        id: item.id,
-        name: item.name,
-        date_created: item.date_created,
-        date_modified: item.date_modified,
-        done: item.done
-      }
-      items.push(item_data)
+          if (this.globalService.unauthorised(bucketlists)){
+            return this.router.navigate(['/auth/login'])
+          }
+        })
     }
-    return items
   }
 
-  parseBucketlists(bucketlists, pos): BucketList{
+  deleteBucketlists(id) {
+    console.log("We have got here");
+    let options = this.globalService.getToken()
 
-    var bucketlist = bucketlists[pos]
-
-    var bktlist = {
-      id: bucketlist.id,
-      name: bucketlist.name,
-      date_created: bucketlist.date_created,
-      date_modified: bucketlist.date_modified,
-      items: this.parseItems(bucketlist),
-      created_by: bucketlist.created_by
+    if (options){
+      return this.http.delete('http://127.0.0.1:5000/api/v1/bucketlists/'+id, options)
+        .map(response => response.json());
     }
-    return bktlist
-  }
-
-  addBucketlists() {
-    console.log("We got here")
   }
 
   getBucketlists(): BucketList[]{
     
-    let options = this.getToken();
+    let options = this.globalService.getToken();
     var bktlists:BucketList[] = []
 
     if (options){
@@ -58,13 +52,13 @@ export class BucketlistsService {
         .subscribe(res => {
           var bucketlists = res.json()
 
-          if (this.unauthorised(bucketlists)){
+          if (this.globalService.unauthorised(bucketlists)){
             return this.router.navigate(['/auth/login'])
           }
           
           if (bucketlists){
             for (var i = 0; i < bucketlists.length; i++) {
-              var bucketlist = this.parseBucketlists(bucketlists, i)
+              var bucketlist = this.globalService.parseBucketlists(bucketlists[i])
               bktlists.push(bucketlist)
               console.log(bucketlist)
             }
@@ -77,27 +71,5 @@ export class BucketlistsService {
       this.router.navigate(['/auth/login'])
     }
   }
-
-  getToken(){
-    let authToken = localStorage.getItem('auth_token');
-    let headers = new Headers({ 'Accept': 'application/json' });
-    if (authToken){
-      headers.append('Authorization', authToken);
-      return new RequestOptions({ headers: headers });
-    }
-    else{
-      return false
-    }
-  }
-
-  unauthorised(bucketlists): boolean{
-    if (bucketlists.status == 401){
-      return false
-    }
-    else if (bucketlists.status == 200 || bucketlists.status == 201){
-      return true
-    }
-  }
-
 }
 

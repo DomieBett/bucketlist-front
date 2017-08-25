@@ -1,24 +1,55 @@
 <div>
-    <p>Welcome</p>
-    <p>
-        Your bucketlists
-    </p>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
+    
     <div *ngIf="bucketlists" class="row bucketlists-holder">
-        <div *ngFor="let bucket of bucketlists" (click)="onSelect(bucket)" class="card col-xs-3 bucket-holder">
-            <div class="card-block">
-                <h4 class="card-title">{{ bucket.id }}. {{ bucket.name }}</h4>
-                <p class="card-text">{{ bucket.date_created}}</p>
-                <p class="card-text">Items: {{ bucket.items.length }}</p>
+
+        <div *ngFor="let bucket of bucketlists"
+            class="mdl-card mdl-shadow--2dp demo-card-square">
+            <div (click)="onSelect(bucket)">
+                <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">{{ bucket.id }}. {{ bucket.name }}</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    Created by: {{ bucket.created_by }}
+                    Items: {{ bucket.items.length }}
+                </div>
+            </div>
+
+            <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+                    data-toggle="tooltip" title="Edit">
+                    <i class="fa fa-pencil-square-o"></i>
+                </a>
+                <a (click)="delete(bucket.id)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+                    data-toggle="tooltip" title="Delete">
+                    <i class="fa fa-trash-o"></i>
+                </a>
             </div>
         </div>
-        <div (click)="addBucket()" class="card col-xs-3 bucket-holder">
-            <p class="card-text">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </p>
+
+        <div (click)="onAdd()" class="add-button">
+            <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
         </div>
     </div>
 
-    <div *ngIf="clicked">
-        <app-bucketlist-items [bucket]="selectedBucket"></app-bucketlist-items>
+    <div *ngIf="add_bucket_clicked">
+        <div class="modal">
+            <button class="close" (click)="close_form()">x</button>
+            <form name="form" (ngSubmit)="f.form.valid && addBucket()" #f="ngForm">
+                <div class="form-group">
+                    <label for="name-input">Name</label>
+                    <input id="name-input" type="text" name="name" [(ngModel)]="model.name" required>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+    });
+</script>

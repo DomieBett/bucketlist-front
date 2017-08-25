@@ -1,17 +1,22 @@
-<div class="bucket-detail-holder">
-    <div class="bucket-name-holder">
-        <h4 class="title">{{ bucket.name }}</h4>
-        <button class="close" (click)="close(false)">x</button>
-    </div>
-    <div class="bucket-items-holder">
-        <ol>
-            <li *ngFor="let item of bucket.items">
-                <span class="item-title">{{ item.name }}</span>
-                <span class="item-tools">
-                  <a class="tool edit"><i class="fa fa-pencil-square-o"></i></a>
-                  <a class="tool delete"><i class="fa fa-trash-o"></i></a>
-                </span>
-            </li>
-        </ol>
+<button class="back-button" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i></button>
+
+<div class="row" *ngIf="bktlist; else empty_bucketlist">
+    <h2> {{ bktlist.name }} </h2>
+    <div class="col-md-10 col-md-offset-2" id="items-holder" *ngFor="let item of bktlist.items">
+        <div class="item-container">
+            <div class="item-holder">
+                <a href="#">{{ item.name }}</a>
+            </div>
+            <div class="done-holder">
+                <label for="done">Done</label>
+                <input type="checkbox" name="done" id="done">
+            </div>
+            <div class="tools">
+                <a (click)="update()" class="tool edit"><i class="fa fa-pencil-square-o"></i></a>
+                <a (click)="delete(bktlist.id, item.id)" class="tool delete"><i class="fa fa-trash-o"></i></a>
+            </div>
+        </div>
     </div>
 </div>
+
+<ng-template #empty_bucketlist></ng-template>

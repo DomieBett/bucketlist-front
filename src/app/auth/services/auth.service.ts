@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthService {
 
+  message: string;
+
   constructor(private http: Http) { }
 
   login(email: string, password: string){
@@ -15,6 +17,10 @@ export class AuthService {
         console.log(user)
         if (user && user.auth_token){
           localStorage.setItem('auth_token', user.auth_token);
+          this.message = null;
+        }
+        else {
+          this.message = user.message;
         }
 
         return user;
@@ -25,7 +31,13 @@ export class AuthService {
     return this.http.post('http://127.0.0.1:5000/auth/register', {name: name, email: email, password: password})
       .map((response: Response) => {
         let user = response.json();
-        console.log(user)
+        if (user && user.auth_token){
+          localStorage.setItem('auth_token', user.auth_token);
+          this.message = null;
+        }
+        else{
+          this.message = user.message;
+        }
       })
   }
 

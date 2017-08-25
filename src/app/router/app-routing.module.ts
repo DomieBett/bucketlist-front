@@ -12,52 +12,25 @@ import { BucketlistItemsComponent } from './../bucketlists/bucketlist-items/buck
 
 const routes: Routes = [
     {
-        path: '',
-        redirectTo: '/bucketlists',
-        pathMatch: 'full'
+        path: '', redirectTo: '/bucketlists', pathMatch: 'full'
     },
     { 
         path: 'auth',
         children: [
-            {
-                path: 'login',
-                component: LoginComponent,
-            },
-            {
-                path: 'register',
-                component: RegisterComponent,
-            }
+            {   path: 'login', component: LoginComponent },
+            {   path: 'register',   component: RegisterComponent }
         ]
     },
     {
         path: 'bucketlists',
         children: [
-            {
-                path: '',
-                component: BucketlistComponent
-            },
-            {
+            {   path: '', component: BucketlistComponent },
+            {   
                 path: ':id',
-                children:[
-                    {
-                        path: '',
-                        component: BucketlistsComponent
-                    },
-                    {
-                        path: 'items',
-                        children:[
-                            {
-                                path: '',
-                                component: BucketlistItemsComponent
-                            },
-                            {
-                                path: ':id',
-                                component: BucketlistItemsComponent,
-                            }
-                        ]
-                    }
+                children: [
+                    {   path: 'items', component: BucketlistItemsComponent }
                 ]
-            },
+             }
         ]
     },
 ];

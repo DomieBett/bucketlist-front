@@ -17,6 +17,7 @@ import { BucketlistItemsComponent } from './bucketlists/bucketlist-items/bucketl
 import { BucketlistsService } from './bucketlists/services/bucketlists.service';
 import { BucketlistItemsService } from './bucketlists/services/bucketlist-items.service';
 import { AuthService } from './auth/services/auth.service';
+import { GlobalService } from './bucketlists/services/global.services';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { AuthService } from './auth/services/auth.service';
     HttpClient,
     BucketlistsService,
     BucketlistItemsService,
-    AuthService
+    AuthService,
+    GlobalService
   ],
   bootstrap: [AppComponent]
 })
