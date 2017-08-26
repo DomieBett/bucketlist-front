@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestOptions, Headers } from '@angular/http';
 
-import { BucketList, Items } from './../../models/bucketlist';
+import { BucketList } from './../models/bucketlist';
 
 
 @Injectable()

@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map'
 
-import { BucketList } from './../../models/bucketlist';
+import { BucketList } from './../models/bucketlist';
 import { GlobalService } from './global.services';
 
 

@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthComponent } from './../auth/auth.component';
 import { AppComponent } from './../app.component';
-import { RegisterComponent } from './../auth/register/register.component';
-import { LoginComponent } from './../auth/login/login.component';
-import { BucketlistComponent } from './../bucketlists/bucketlists.component';
-import { BucketlistsComponent } from './../bucketlists/bucketlist/bucketlist.component';
-import { BucketlistItemsComponent } from './../bucketlists/bucketlist-items/bucketlist-items.component';
+import { RegisterComponent } from './../components/auth/register/register.component';
+import { LoginComponent } from './../components/auth/login/login.component';
+import { BucketlistComponent } from './../components/bucketlists/bucketlists.component';
+import { BucketlistItemsComponent } from './../components/bucketlists/bucketlist-items/bucketlist-items.component';
 
 
 const routes: Routes = [

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http'
 import { Router } from '@angular/router';
 
-import { BucketList, Items } from './../../models/bucketlist';
+import { BucketList } from './../models/bucketlist';
 import { GlobalService } from './global.services';
 
 
