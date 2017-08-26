@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BucketlistsService } from './services/bucketlists.service';
-import { BucketlistItemsService } from './services/bucketlist-items.service';
-import { BucketList } from './../models/bucketlist';
-import { GlobalService } from './services/global.services';
+import { BucketlistsService } from './../../services/bucketlists.service';
+import { BucketlistItemsService } from './../../services/bucketlist-items.service';
+import { BucketList } from './../../models/bucketlist';
+import { BucketToolsService } from './../../services/bucket-tools.service';
+import { UserService } from './../../services/user.service'
 
 
 @Component({
@@ -15,24 +16,44 @@ import { GlobalService } from './services/global.services';
 export class BucketlistComponent implements OnInit {
 
   model: any = {};
-  bucketlists: BucketList[];
+  bucketlists: BucketList[] = [];
   selectedBucket: BucketList;
   add_bucket_clicked: boolean = false;
 
   constructor(
     private bucketlistsService: BucketlistsService,
     private bucketlistItemService: BucketlistItemsService,
+    private bucketTools: BucketToolsService,
     private router: Router,
-    private globalService: GlobalService
+    private user: UserService
     ) { }
 
   ngOnInit() {
-    this.bucketlists = this.bucketlistsService.getBucketlists();
-    this.selectedBucket = this.bucketlists[0];
+     this.getBucketlists()
   }
 
   addBucketlist(){
     this.bucketlistsService.addBucketlists(this.model.name)
+  }
+
+  getBucketlists(){
+    this.bucketlistsService.getBucketlists()
+      .subscribe(response => {
+          
+          this.bucketlists = [];
+          let bucketlists = response.json()
+
+          if (response.status == 401)
+              this.router.navigate(['/auth/login'])
+
+          else if (bucketlists) {
+              for (var i = 0; i < bucketlists.length; i++) {
+                var bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
+                this.bucketlists.push(bucketlist);
+                console.log(bucketlist);
+              }
+          }
+      });
   }
 
   onSelect(bucket: BucketList){
@@ -40,20 +61,19 @@ export class BucketlistComponent implements OnInit {
     this.router.navigate(['bucketlists/' + bucket.id + '/items']);
   }
 
-  onAdd(){
-    
-  }
+  onAdd(){ }
 
   delete(id){
     this.bucketlistsService.deleteBucketlists(id).subscribe(response => {
 
-          if (this.globalService.unauthorised(response)){
-            this.router.navigate(['/auth/login'])
-          }
-          else if (response){
-            this.bucketlists = this.bucketlistsService.getBucketlists();
-          }
-        });
-    this.router.navigate(['bucketlists/'])
+        let status = response.json().status;
+
+        if (response.status == 401)
+          this.router.navigate(['/auth/login'])
+        else if (status == "success"){
+          this.getBucketlists();
+        }
+    });
+    this.router.navigate(['bucketlists/']);
   }
 }

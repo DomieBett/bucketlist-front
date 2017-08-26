@@ -5,7 +5,7 @@ import { AppComponent } from './../app.component';
 import { RegisterComponent } from './../components/auth/register/register.component';
 import { LoginComponent } from './../components/auth/login/login.component';
 import { BucketlistComponent } from './../components/bucketlists/bucketlists.component';
-import { BucketlistItemsComponent } from './../components/bucketlists/bucketlist-items/bucketlist-items.component';
+import { BucketItemsComponent } from './../components/bucketlists/bucket-items/bucket-items.component';
 
 
 const routes: Routes = [
@@ -26,7 +26,7 @@ const routes: Routes = [
             {   
                 path: ':id',
                 children: [
-                    {   path: 'items', component: BucketlistItemsComponent }
+                    {   path: 'items', component: BucketItemsComponent }
                 ]
              }
         ]
