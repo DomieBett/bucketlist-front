@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 
 
 @Injectable()
-export class BucketlistItemsService {
+export class BucketItemsService {
 
   constructor(
     private user: UserService,

@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BucketlistsService } from './../../services/bucketlists.service';
-import { BucketlistItemsService } from './../../services/bucketlist-items.service';
-import { BucketList } from './../../models/bucketlist';
+import { BucketItemsService } from './../../services/bucket-items.service';
 import { BucketToolsService } from './../../services/bucket-tools.service';
-import { UserService } from './../../services/user.service'
+import { UserService } from './../../services/user.service';
+import { ModalService } from './../../services/modal.service';
+
+import { BucketList } from './../../models/bucketlist';
 
 
 @Component({
@@ -19,11 +21,13 @@ export class BucketlistComponent implements OnInit {
   bucketlists: BucketList[] = [];
   selectedBucket: BucketList;
   add_bucket_clicked: boolean = false;
+  deletebucketid: number;
 
   constructor(
     private bucketlistsService: BucketlistsService,
-    private bucketlistItemService: BucketlistItemsService,
+    private bucketItemService: BucketItemsService,
     private bucketTools: BucketToolsService,
+    private modalService: ModalService,
     private router: Router,
     private user: UserService
     ) { }
@@ -33,7 +37,17 @@ export class BucketlistComponent implements OnInit {
   }
 
   addBucketlist(){
-    this.bucketlistsService.addBucketlists(this.model.name)
+
+    this.bucketlistsService.addBucketlist(this.model.name)
+      .subscribe(response => {
+        let bucketlist = response.json()
+
+        if (response.status == 401)
+            this.router.navigate(['/auth/login'])
+
+         else if (bucketlist)
+           console.log(bucketlist);
+      });
   }
 
   getBucketlists(){
@@ -63,7 +77,9 @@ export class BucketlistComponent implements OnInit {
 
   onAdd(){ }
 
-  delete(id){
+  deleteBucketlist(){
+
+    let id = this.deletebucketid
     this.bucketlistsService.deleteBucketlists(id).subscribe(response => {
 
         let status = response.json().status;
@@ -75,5 +91,19 @@ export class BucketlistComponent implements OnInit {
         }
     });
     this.router.navigate(['bucketlists/']);
+  }
+
+  toDelete(bucket){
+    this.deletebucketid = bucket.id
+    console.log("Before" + bucket.id)
+    console.log("After" + this.deletebucketid)
+  }
+
+  openModal(id: string){
+      this.modalService.open(id);
+  }
+
+  closeModal(id: string){
+      this.modalService.close(id);
   }
 }

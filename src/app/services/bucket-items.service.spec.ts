@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { BucketlistItemsService } from './bucketlist-items.service';
+import { BucketlistItemsService } from './bucket-items.service';
 
 describe('BucketlistItemsService', () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { BucketlistItemsService } from './../../../services/bucketlist-items.service';
+import { BucketItemsService } from './../../../services/bucket-items.service';
 import { UserService } from './../../../services/user.service';
 import { BucketToolsService } from './../../../services/bucket-tools.service'
 
@@ -21,7 +21,7 @@ export class BucketItemsComponent implements OnInit {
   bucket: BucketList;
 
   constructor(
-    private itemService: BucketlistItemsService,
+    private itemService: BucketItemsService,
     private bucketTools: BucketToolsService,
     private user: UserService,
     private route: ActivatedRoute,

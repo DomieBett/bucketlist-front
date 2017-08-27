@@ -12,12 +12,14 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { BucketlistComponent } from './components/bucketlists/bucketlists.component';
 import { BucketItemsComponent } from './components/bucketlists/bucket-items/bucket-items.component';
+import { ModalComponent } from './directives/modal.component';
 
 import { BucketlistsService } from './services/bucketlists.service';
-import { BucketlistItemsService } from './services/bucketlist-items.service';
+import { BucketItemsService } from './services/bucket-items.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { BucketToolsService } from './services/bucket-tools.service'
+import { BucketToolsService } from './services/bucket-tools.service';
+import { ModalService } from './services/modal.service';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { BucketToolsService } from './services/bucket-tools.service'
     LoginComponent,
     RegisterComponent,
     BucketlistComponent,
-    BucketItemsComponent
+    BucketItemsComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -37,10 +40,11 @@ import { BucketToolsService } from './services/bucket-tools.service'
   providers: [
     HttpClient,
     BucketlistsService,
-    BucketlistItemsService,
+    BucketItemsService,
     AuthService,
     UserService,
-    BucketToolsService
+    BucketToolsService,
+    ModalService
   ],
   bootstrap: [AppComponent]
 })

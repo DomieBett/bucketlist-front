@@ -20,32 +20,61 @@
                     data-toggle="tooltip" title="Edit">
                     <i class="fa fa-pencil-square-o"></i>
                 </a>
-                <a (click)="delete(bucket.id)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+                <a (click)="openModal('delete-bucket-modal'); toDelete(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
                     data-toggle="tooltip" title="Delete">
                     <i class="fa fa-trash-o"></i>
                 </a>
             </div>
         </div>
 
-        <div (click)="onAdd()" class="add-button">
+        <div (click)="openModal('add-bucket-modal')" class="add-button">
             <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
         </div>
     </div>
 
-    <div *ngIf="add_bucket_clicked">
-        <div class="modal">
-            <button class="close" (click)="close_form()">x</button>
-            <form name="form" (ngSubmit)="f.form.valid && addBucket()" #f="ngForm">
-                <div class="form-group">
-                    <label for="name-input">Name</label>
-                    <input id="name-input" type="text" name="name" [(ngModel)]="model.name" required>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
+    <modal id="add-bucket-modal">
+        <div class="custom-modal">
+            <div class="custom-modal-body">
+                <button (click)="closeModal('add-bucket-modal');">Close</button>
+                <h4>Add Bucketlist.</h4>
+                    <form name="form" (ngSubmit)="f.form.valid && addBucketlist()" #f="ngForm" novalidate>
+                        <div class="form-group">
+                            <label for="bucketlist-name">Bucketlist Name:</label>
+                            <input id="bucketlist-name" name="bucketlist-name"
+                                    type="text" [(ngModel)]="model.name"
+                                    #username="ngModel" placeholder="Enter bucketlist name"
+                                    class="form-control"
+                                    required />
+                        </div>
+                        <div>
+                            <button (click)="closeModal('add-bucket-modal')" type="submit"
+                            class="btn btn-primary form-control">Submit</button>
+                        </div>
+                    </form>
+            </div>
         </div>
-    </div>
+        <div class="modal-background"></div>
+    </modal>
+
+    <modal id="delete-bucket-modal">
+        <div class="custom-modal">
+            <div class="custom-modal-body">
+                <h4>Delete Bucketlist.</h4>
+                    <form name="form" (ngSubmit)="f.form.valid && deleteBucketlist()" #f="ngForm" novalidate>
+                        <div>
+                            <p>Are you sure you wish to delete this bucketlist?</p>
+                        </div>
+                        <div class="row">
+                            <a (click)="closeModal('delete-bucket-modal');"
+                                class="btn btn-default form-control col-xs-6">Cancel</a>
+                            <button (click)="closeModal('delete-bucket-modal')" type="submit"
+                            class="btn btn-danger form-control col-xs-6">Yes</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        <div class="modal-background"></div>
+    </modal>
 </div>
 
 <script>

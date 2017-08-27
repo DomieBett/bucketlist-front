@@ -18,16 +18,13 @@ export class BucketlistsService {
     private bucketTools: BucketToolsService
   ) { }
 
-  addBucketlists(name: string) {
+  addBucketlist(name: string) {
 
     let options = this.user.getToken()
     
     if (options){
-      this.http.post('http://127.0.0.1:5000/api/v1/bucketlists/', {name: name}, options)
-        .subscribe(res => {
-          var bucketlists = res.json()
-
-        })
+      return this.http.post('http://127.0.0.1:5000/api/v1/bucketlists/', {name: name}, options)
+        .map(response => response);
     }
   }
 
