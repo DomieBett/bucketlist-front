@@ -17,6 +17,7 @@ export class ModalService {
     open(id: string) {
         // open modal specified by id
         let modal = _.findWhere(this.modals, { id: id });
+        console.log(this.modals.length)
         modal.open();
     }
 

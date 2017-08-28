@@ -34,6 +34,36 @@ export class BucketItemsService {
         }
     }
 
+    addItem(bucket_id, name: string){
+
+        let options = this.user.getToken();
+
+        if (options) {
+            return this.http.post(
+                'http://127.0.0.1:5000/api/v1/bucketlists/'
+                    + bucket_id + "/items/", {name: name}, options
+            ).map(response => response.json());
+        }
+        else {
+            this.router.navigate(['/auth/login/']);
+        }
+    }
+
+    updateItem(bucket_id, item_id, name, done){
+
+        let options = this.user.getToken();
+
+        if (options){
+
+            return this.http.put(
+                'http://127.0.0.1:5000/api/v1/bucketlists/'
+                    + bucket_id + "/items/" + item_id,
+                    { name: name, done: done },
+                    options
+                ).map(response => response.json())
+        }
+    }
+
     deleteItem(bucket_id, item_id){
 
         // Get auth token.

@@ -21,6 +21,7 @@ export class BucketlistComponent implements OnInit {
     bucketlists: BucketList[] = [];
     selectedBucket: BucketList;
     deletebucketid: number;
+    ids: any = {};
 
     constructor(
         private bucketlistsService: BucketlistsService,
@@ -74,9 +75,24 @@ export class BucketlistComponent implements OnInit {
             });
     }
 
+    updateBucketlist(){
+        let id = this.ids.bucket_id;
+        this.bucketlistsService.updateBucketlist(
+            id, this.model.name)
+            .subscribe(response => {
+                let status = response.json().status;
+
+                if (response.status == 401)
+                    this.router.navigate(['/auth/login'])
+                else if (response){
+                    this.getBucketlists();
+                }
+            })
+    }
+
     deleteBucketlist(){
         // Deletes bucketlists.
-        let id = this.deletebucketid
+        let id = this.ids.bucket_id;
         this.bucketlistsService.deleteBucketlists(id)
             .subscribe(response => {
 
@@ -102,9 +118,14 @@ export class BucketlistComponent implements OnInit {
         this.modalService.close(id);
     }
 
-    toDelete(bucket){
+    onUpdate(bucket){
+        this.ids.bucket_id = bucket.id;
+        this.model.name = bucket.name;
+    }
+
+    onDelete(bucket){
         // Save bucketlist id to be deleted if confirmed by user.
-        this.deletebucketid = bucket.id
+        this.ids.bucket_id = bucket.id
     }
     
     onSelect(bucket: BucketList){

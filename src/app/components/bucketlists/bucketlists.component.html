@@ -16,11 +16,11 @@
             </div>
 
             <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+                <a (click)="openModal('update-bucket-modal'); onUpdate(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
                     data-toggle="tooltip" title="Edit">
                     <i class="fa fa-pencil-square-o"></i>
                 </a>
-                <a (click)="openModal('delete-bucket-modal'); toDelete(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+                <a (click)="openModal('delete-bucket-modal'); onDelete(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
                     data-toggle="tooltip" title="Delete">
                     <i class="fa fa-trash-o"></i>
                 </a>
@@ -51,6 +51,30 @@
                             class="btn btn-primary form-control">Submit</button>
                         </div>
                     </form>
+            </div>
+        </div>
+        <div class="modal-background"></div>
+    </modal>
+
+    <modal id="update-bucket-modal">
+        <div class="custom-modal">
+            <div class="custom-modal-body">
+                <button (click)="closeModal('update-bucket-modal');">Close</button>
+                <h4>Add Bucketlist Item.</h4>
+                <form name="form" (ngSubmit)="f.form.valid && updateBucketlist()" #f="ngForm" novalidate>
+                    <div class="form-group">
+                        <label for="bucketlist-name">Item Name:</label>
+                        <input id="bucketlist-name" name="bucketlist-name"
+                                type="text" [(ngModel)]="model.name"
+                                #username="ngModel" placeholder="Enter item name"
+                                class="form-control"
+                                required />
+                    </div>
+                    <div>
+                        <button (click)="closeModal('update-bucket-modal')" type="submit"
+                        class="btn btn-primary form-control">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="modal-background"></div>

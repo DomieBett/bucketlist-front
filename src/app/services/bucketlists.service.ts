@@ -32,6 +32,18 @@ export class BucketlistsService {
         }
     }
 
+    updateBucketlist(id, name) {
+
+        let options = this.user.getToken();
+        if (options) {
+
+            return this.http.put(
+                'http://127.0.0.1:5000/api/v1/bucketlists/'
+                + id, {name: name}, options
+            ).map(response => response);
+        }
+    }
+
     deleteBucketlists(id) {
 
         //Get auth token
