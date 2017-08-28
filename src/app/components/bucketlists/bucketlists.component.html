@@ -30,6 +30,16 @@
         <div (click)="openModal('add-bucket-modal')" class="add-button">
             <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
         </div>
+
+        <div id="paginate">
+            <div id="previous-holder">
+                <button>Previous</button>
+            </div>
+            
+            <div id="next-holder">
+                <button>Next</button>
+            </div>
+        </div>
     </div>
 
     <modal id="add-bucket-modal">
@@ -100,6 +110,8 @@
         <div class="modal-background"></div>
     </modal>
 </div>
+
+
 
 <script>
     $(document).ready(function(){
