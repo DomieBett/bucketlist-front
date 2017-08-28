@@ -5,30 +5,30 @@ import { AuthService } from './../../../services/auth.service';
 
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
-  model: any = {};
-  message: string = this.authService.message;
+    model: any = {};
+    message: string = this.authService.message;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService
-  ) { }
+    constructor(
+        private router: Router,
+        private authService: AuthService
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() { }
 
-  register(){
-    this.authService.register(this.model.name, this.model.email, this.model.password)
-      .subscribe(
-        data =>{
-          this.router.navigate(['/auth/login']);
-        }
-      )
-  }
+    register(){
+
+        // Registers user. Calls register service.
+        this.authService.register(this.model.name, this.model.email, this.model.password)
+        .subscribe(
+            data =>{
+                this.router.navigate(['/auth/login']);
+        });
+    }
 
 }

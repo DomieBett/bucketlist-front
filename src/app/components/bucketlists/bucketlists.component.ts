@@ -11,99 +11,108 @@ import { BucketList } from './../../models/bucketlist';
 
 
 @Component({
-  selector: 'app-bucketlists',
-  templateUrl: './bucketlists.component.html',
-  styleUrls: ['./bucketlists.component.css']
+    selector: 'app-bucketlists',
+    templateUrl: './bucketlists.component.html',
+    styleUrls: ['./bucketlists.component.css']
 })
 export class BucketlistComponent implements OnInit {
 
-  model: any = {};
-  bucketlists: BucketList[] = [];
-  selectedBucket: BucketList;
-  add_bucket_clicked: boolean = false;
-  deletebucketid: number;
+    model: any = {};
+    bucketlists: BucketList[] = [];
+    selectedBucket: BucketList;
+    deletebucketid: number;
 
-  constructor(
-    private bucketlistsService: BucketlistsService,
-    private bucketItemService: BucketItemsService,
-    private bucketTools: BucketToolsService,
-    private modalService: ModalService,
-    private router: Router,
-    private user: UserService
+    constructor(
+        private bucketlistsService: BucketlistsService,
+        private bucketItemService: BucketItemsService,
+        private bucketTools: BucketToolsService,
+        private modalService: ModalService,
+        private router: Router,
+        private user: UserService
     ) { }
 
-  ngOnInit() {
-     this.getBucketlists()
-  }
+    ngOnInit() {
+        // Retrieve all bucketlists on component start up.
+        this.getBucketlists()
+    }
 
-  addBucketlist(){
+    addBucketlist(){
 
-    this.bucketlistsService.addBucketlist(this.model.name)
-      .subscribe(response => {
-        let bucketlist = response.json()
+        // Send data to service add bucketlist function.
+        this.bucketlistsService.addBucketlist(this.model.name)
+            .subscribe(response => {
 
-        if (response.status == 401)
-            this.router.navigate(['/auth/login'])
+            let bucketlist = response.json()
 
-         else if (bucketlist)
-           console.log(bucketlist);
-      });
-  }
+            // If unauthorised, redirect to login page.
+            if (response.status == 401)
+                this.router.navigate(['/auth/login'])
 
-  getBucketlists(){
-    this.bucketlistsService.getBucketlists()
-      .subscribe(response => {
-          
-          this.bucketlists = [];
-          let bucketlists = response.json()
-
-          if (response.status == 401)
-              this.router.navigate(['/auth/login'])
-
-          else if (bucketlists) {
-              for (var i = 0; i < bucketlists.length; i++) {
-                var bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
-                this.bucketlists.push(bucketlist);
+            else if (bucketlist)
                 console.log(bucketlist);
-              }
-          }
-      });
-  }
+        });
+    }
 
-  onSelect(bucket: BucketList){
-    this.selectedBucket = bucket;
-    this.router.navigate(['bucketlists/' + bucket.id + '/items']);
-  }
+    getBucketlists(){
+        this.bucketlistsService.getBucketlists()
+            .subscribe(response => {
+              
+                this.bucketlists = [];
+                let bucketlists = response.json()
 
-  onAdd(){ }
+                // If unauthorised, redirect to login page.
+                if (response.status == 401)
+                    this.router.navigate(['/auth/login'])
 
-  deleteBucketlist(){
+                // Get Bucketlist objects and push them to array.
+                else if (bucketlists) {
+                    for (var i = 0; i < bucketlists.length; i++) {
+                        var bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
+                        this.bucketlists.push(bucketlist);
+                    }
+                }
+            });
+    }
 
-    let id = this.deletebucketid
-    this.bucketlistsService.deleteBucketlists(id).subscribe(response => {
+    deleteBucketlist(){
+        // Deletes bucketlists.
+        let id = this.deletebucketid
+        this.bucketlistsService.deleteBucketlists(id)
+            .subscribe(response => {
 
-        let status = response.json().status;
+                let status = response.json().status;
 
-        if (response.status == 401)
-          this.router.navigate(['/auth/login'])
-        else if (status == "success"){
-          this.getBucketlists();
-        }
-    });
-    this.router.navigate(['bucketlists/']);
-  }
+                // Redirect to login page if unauthorised.
+                if (response.status == 401)
+                    this.router.navigate(['/auth/login'])
+                else if (status == "success"){
+                    this.getBucketlists();
+                }
+            });
+        this.router.navigate(['bucketlists/']);
+    }
 
-  toDelete(bucket){
-    this.deletebucketid = bucket.id
-    console.log("Before" + bucket.id)
-    console.log("After" + this.deletebucketid)
-  }
+    openModal(id: string){
+        // Open modal with id specified.
+        this.modalService.open(id);
+    }
 
-  openModal(id: string){
-      this.modalService.open(id);
-  }
+    closeModal(id: string){
+        // Close modal with the specified id.
+        this.modalService.close(id);
+    }
 
-  closeModal(id: string){
-      this.modalService.close(id);
-  }
+    toDelete(bucket){
+        // Save bucketlist id to be deleted if confirmed by user.
+        this.deletebucketid = bucket.id
+    }
+    
+    onSelect(bucket: BucketList){
+        // Redirect to items once bucket is clicked.
+        this.selectedBucket = bucket;
+        this.router.navigate(['bucketlists/'
+            + bucket.id + '/items']);
+    }
+
+    onAdd(){ }
 }

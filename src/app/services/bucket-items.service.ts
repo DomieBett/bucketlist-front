@@ -10,31 +10,45 @@ import { UserService } from './user.service';
 @Injectable()
 export class BucketItemsService {
 
-  constructor(
-    private user: UserService,
-    private http: Http,
-    private router: Router
-  ) { }
+    constructor(
+        private user: UserService,
+        private http: Http,
+        private router: Router
+    ) { }
 
-  getSingleBucket(id: number){
-    let options = this.user.getToken();
-    if (options){
-      return this.http.get('http://127.0.0.1:5000/api/v1/bucketlists/'+id, options)
-        .map(response => response.json()); 
-    }
-    else{
-      this.router.navigate(['/auth/login'])
-    }
-  }
+    getSingleBucket(id: number){
 
-  deleteItem(bucket_id, item_id){
-    let options = this.user.getToken();
-    if (options) {
-      return this.http.delete('http://127.0.0.1:5000/api/v1/bucketlists/'+bucket_id+"/items/"+item_id, options)
-        .map(response => response.json());
+        // Get auth token.
+        let options = this.user.getToken();
+
+        if (options){
+            // Send get request to get single bucketlist.
+            return this.http.get(
+                'http://127.0.0.1:5000/api/v1/bucketlists/'
+                + id, options
+            ).map(response => response.json()); 
+        }
+        else{
+            //Redirect to login page if user not logged in.
+            this.router.navigate(['/auth/login'])
+        }
     }
-    else{
-      this.router.navigate(['/auth/login/'])
+
+    deleteItem(bucket_id, item_id){
+
+        // Get auth token.
+        let options = this.user.getToken();
+
+        if (options) {
+            // Send delete request to delete bucketlist item.
+            return this.http.delete(
+                'http://127.0.0.1:5000/api/v1/bucketlists/'
+                    + bucket_id + "/items/" + item_id,
+                    options
+                ).map(response => response.json());
+        }
+        else{
+            this.router.navigate(['/auth/login/'])
+        }
     }
-  }
 }

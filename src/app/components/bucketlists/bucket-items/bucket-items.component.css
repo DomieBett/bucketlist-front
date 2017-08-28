@@ -1,60 +1,17 @@
-/*.bucket-detail-holder {
-    float: left;
-    position: absolute;
-    width: 80%;
-    height: 80%;
-    background-color: white;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    box-shadow: -10px 10px 5px #888888;
-    border: 1px solid silver;
-    padding: 5px;
+
+.container {
+    padding-right: 20px;
+    padding-bottom: 40px;
+    -moz-box-shadow:10px 10px 10px #eaf5ff;
+    -webkit-box-shadow:10px 10px 10px #eaf5ff;
+    box-shadow:10px 10px 10px #eaf5ff;
 }
-
-.title {
-    float: left;
-}
-
-.bucket-items-holder {
-    clear: both;
-}
-
-.bucket-items-holder li {
-    margin-bottom: 5px;
-    list-style-type: square;
-}
-
-.item-title {
-    float: left;
-}
-
-.item-tools {
-    float: right;
-    margin-right: 5px;
-}
-
-.tool {
-    margin-right: 5px;
-    cursor: pointer;
-}
-
-.tool.delete {
-    color: red;
-}*/
-
-
-/***************************/
-
-/* LIST #8 */
 
 h2 {
-    color: #004c06;
-    text-align: center;
-
+    color: #5facef;
+    margin: 10px;
+    display: block;
+    padding-left: 10%;
 }
 
 .back-button {
@@ -65,47 +22,45 @@ h2 {
     font-size: 30px;
 }
 
-#items-holder {  
-    
-}
-
-#items-holder .item-container {
-    margin: 0 auto;
+.items-holder {  
     font-family:Georgia,serif,Times;
-    font-size: 15px;
-    margin: 5px 20px 5px 20px;
-    background-color:#c6c9d3;
+    border-radius: 5px;
     width: 80%;
-    height: 60px;
-    border-left:5px solid #004c06;
-    border-right:5px solid #004c06;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left: 5px solid #5facef;
+    border-right: 5px solid #5facef;
+    background-color: #f2f8ff;
 }
 
-#items-holder div div a { 
-    display:block;
-    height:35px;
-    padding-top: 10px;
-    padding-left:10px;
-    text-decoration:none;
-    color:#004c06;
-}
-#items-holder div div:hover { 
-    -moz-box-shadow:10px 10px 20px silver;
-    -webkit-box-shadow:10px 10px 20px silver;
-    box-shadow:10px 10px 20px silver;
+.items-holder .item-container {
+    font-size: 15px;
+    height: auto;
+    position: relative;
+    overflow: auto;
+    padding: 5px 10px 5px 10px;
 }
 
-#items-holder ul div:active{
+.items-holder:hover { 
+    transform: scale(0.99);
+    -moz-box-shadow:10px 10px 20px #eaf5ff;
+    -webkit-box-shadow:10px 10px 20px #eaf5ff;
+    box-shadow:10px 10px 20px #eaf5ff;
+}
+
+.items-holder ul div:active{
     
 }
 
-#items-holder ul li div {
+.items-holder ul li div {
 
 }
 
-.item-holder {
+.item {
     float: left;
     width: 100%;
+    border-bottom: 1px solid #5facef;
 }
 
 label {
@@ -116,6 +71,14 @@ label {
 
 .done-holder {
     float: left;
+    padding-top: 10px;
+    padding-right: 10px;
+    display: block;
+    height: 35px;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
 }
 
 .tools {
@@ -124,10 +87,43 @@ label {
 }
 
 .tool {
+    display: block;
+    height: 35px;
+    padding-top: 10px;
+    padding-left: 10px;
+    text-decoration: none;
+    color: #004c06;
     float: right;
     display: inline-block;
-    padding: 5px;
     font-size: 20px;
     margin-right: 5px;
     cursor: pointer;
 }
+
+
+
+/******************/
+
+.tweet{
+    background-color: #1FCC84;
+    border: 1px solid #000000;
+    border-radius: 0.5em;
+    margin: 2px 0;
+    font-size: 0.8em;
+}
+.detail img{
+    padding:10px;
+    padding-top:5px;
+    float:left;
+}
+.detail h1{
+    padding-top:5px;
+    font-size:12px;
+}
+.detail p{
+    background-color:red;
+}
+/*.tools{
+    margin-left:70px;
+    margin-bottom:5px;
+}*/
