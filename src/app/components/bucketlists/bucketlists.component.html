@@ -10,7 +10,7 @@
                 <h2 class="mdl-card__title-text">{{ bucket.id }}. {{ bucket.name }}</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                    Created by: {{ bucket.created_by }}
+                    Created by: {{ bucket.created_by }}<br>
                     Items: {{ bucket.items.length }}
                 </div>
             </div>
@@ -29,6 +29,24 @@
 
         <div (click)="openModal('add-bucket-modal')" class="add-button">
             <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
+        </div>
+
+        <div id="paginate">
+            <div class="paginate-holder wrapper">
+                <ul>
+                    <li><a *ngIf="pages.previous" (click)="getPage(pages.previous)">&lang; previous | </a></li>
+                    <!-- <li><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="" class="active">4</a></li>
+                    <li><a href="">5</a></li>
+                    <li><a href="" class="more">&hellip;</a></li>
+                    <li><a href="">98</a></li>
+                    <li><a href="">99</a></li>
+                    <li><a href="">100</a></li> -->
+                    <li *ngIf="pages.next"><a (click)="getPage(pages.next)"> | next &rang;</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -100,6 +118,8 @@
         <div class="modal-background"></div>
     </modal>
 </div>
+
+
 
 <script>
     $(document).ready(function(){
