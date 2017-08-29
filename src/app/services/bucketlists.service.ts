@@ -57,14 +57,21 @@ export class BucketlistsService {
         }
     }
 
-    getBucketlists(){
+    getBucketlists(page){
 
         //Get auth token.
         let options = this.user.getToken();
+
+        let url = 'http://127.0.0.1:5000/api/v1/bucketlists'
         if (options){
+
+            if (page > 1){
+                url = 'http://127.0.0.1:5000/api/v1/bucketlists/?page=' + page;
+            }
+
             //Send get request to retrieve all bucketlists.
             return this.http.get(
-                'http://127.0.0.1:5000/api/v1/bucketlists',
+                url,
                 options
             ).map(response => response);
         }

@@ -21,6 +21,11 @@ export class BucketlistComponent implements OnInit {
     bucketlists: BucketList[] = [];
     selectedBucket: BucketList;
     deletebucketid: number;
+    pages: any = {
+        next: null,
+        previous: null,
+        current: null
+    };
     ids: any = {};
 
     constructor(
@@ -34,7 +39,7 @@ export class BucketlistComponent implements OnInit {
 
     ngOnInit() {
         // Retrieve all bucketlists on component start up.
-        this.getBucketlists()
+        this.getBucketlists(this.pages.current)
     }
 
     addBucketlist(){
@@ -43,23 +48,28 @@ export class BucketlistComponent implements OnInit {
         this.bucketlistsService.addBucketlist(this.model.name)
             .subscribe(response => {
 
-            let bucketlist = response.json()
+            let bucketlist = response.json();
 
             // If unauthorised, redirect to login page.
             if (response.status == 401)
-                this.router.navigate(['/auth/login'])
+                this.router.navigate(['/auth/login']);
 
             else if (bucketlist)
                 console.log(bucketlist);
         });
     }
 
-    getBucketlists(){
-        this.bucketlistsService.getBucketlists()
+    getBucketlists(page){
+        this.bucketlistsService.getBucketlists(page)
             .subscribe(response => {
-              
+
                 this.bucketlists = [];
-                let bucketlists = response.json()
+                let bucketlists = response.json().bucketlists;
+                let links = response.json().links;
+                this.pages.previous = links[0].id;
+                this.pages.next = links[1].id;
+                this.pages.current = links[2].id;
+                console.log(this.pages.previous + " " + this.pages.next + " " + this.pages.current);
 
                 // If unauthorised, redirect to login page.
                 if (response.status == 401)
@@ -67,12 +77,18 @@ export class BucketlistComponent implements OnInit {
 
                 // Get Bucketlist objects and push them to array.
                 else if (bucketlists) {
-                    for (var i = 0; i < bucketlists.length; i++) {
-                        var bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
+                    for (let i = 0; i < bucketlists.length; i++) {
+                        let bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
                         this.bucketlists.push(bucketlist);
                     }
                 }
             });
+    }
+
+    getPage(page) {
+        console.log("Go to page: " + page);
+        if (page)
+            this.getBucketlists(page);
     }
 
     updateBucketlist(){
@@ -85,7 +101,7 @@ export class BucketlistComponent implements OnInit {
                 if (response.status == 401)
                     this.router.navigate(['/auth/login'])
                 else if (response){
-                    this.getBucketlists();
+                    this.getBucketlists(this.pages.current);
                 }
             })
     }
@@ -102,7 +118,7 @@ export class BucketlistComponent implements OnInit {
                 if (response.status == 401)
                     this.router.navigate(['/auth/login'])
                 else if (status == "success"){
-                    this.getBucketlists();
+                    this.getBucketlists(this.pages.current);
                 }
             });
         this.router.navigate(['bucketlists/']);
