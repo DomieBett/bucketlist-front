@@ -20,27 +20,12 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
-.modal {
-    position: absolute;
-    width: 70%;
-    height: 50%;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    box-shadow: -10px 10px 5px #888888;
-    border: 1px solid silver;
-    padding: 5px;
-}
-
 .close {
     float: right;
 }
 
 .demo-card-square.mdl-card {
-    width: 200px;
+    width: 300px;
     height: 200px;
     float: left;
     margin: 1rem;
@@ -48,6 +33,7 @@ body {
 }
 
 .demo-card-square.mdl-card:hover {
+    transform: scale(0.96);
     box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14),
      0 3px 14px 2px rgba(0, 0, 0, .12),
      0 5px 5px -3px rgba(0, 0, 0, .2);
@@ -88,4 +74,67 @@ body {
     width: 40px;
     margin: 10px;
     color: white;
+}
+
+modal {
+    /* modals are hidden by default */
+    display: none;
+}
+
+.custom-modal {
+    /* modal container fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* z-index must be higher than .modal-background */
+    z-index: 1000;
+    
+    /* enables scrolling for tall modals */
+    overflow: auto;
+}
+
+.custom-modal-body {
+    padding: 20px;
+    background: #fff;
+
+    /* margin exposes part of the modal background */
+    margin: 20%;
+}
+
+.modal-background {
+    /* modal background fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* semi-transparent black  */
+    background-color: #000;
+    opacity: 0.75;
+    
+    /* z-index must be below .modal and above everything else  */
+    z-index: 900;
+}
+
+body.modal-open {
+    /* body overflow is hidden to hide main scrollbar when modal window is open */
+    overflow: hidden;
+}
+
+
+#paginate {
+    clear: both;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#paginate div ul li{
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
 }
