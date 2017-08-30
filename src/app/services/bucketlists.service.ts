@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions }from '@angular/http'
+import { Http, Response, RequestOptions }from '@angular/http'
 import { Router } from '@angular/router';
 
 import { BucketList } from './../models/bucketlist';
@@ -66,7 +66,7 @@ export class BucketlistsService {
         if (options){
 
             if (page > 1){
-                url = 'http://127.0.0.1:5000/api/v1/bucketlists/?page=' + page;
+                url = url + "/?page=" + page;
             }
 
             //Send get request to retrieve all bucketlists.

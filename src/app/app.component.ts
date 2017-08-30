@@ -22,10 +22,4 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     
   }
-
-  logout(){
-    this.authService.logout()
-    this.router.navigate(['/auth/login'])
-    this.loggedIn = false;
-  }
 }

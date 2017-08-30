@@ -13,6 +13,8 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { BucketlistComponent } from './components/bucketlists/bucketlists.component';
 import { BucketItemsComponent } from './components/bucketlists/bucket-items/bucket-items.component';
 import { ModalComponent } from './directives/modal.component';
+import { SearchComponent } from './components/search/search.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { BucketlistsService } from './services/bucketlists.service';
 import { BucketItemsService } from './services/bucket-items.service';
@@ -20,6 +22,7 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { BucketToolsService } from './services/bucket-tools.service';
 import { ModalService } from './services/modal.service';
+import { SearchService } from './services/search.service';
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import { ModalService } from './services/modal.service';
     RegisterComponent,
     BucketlistComponent,
     BucketItemsComponent,
-    ModalComponent
+    ModalComponent,
+    SearchComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,8 @@ import { ModalService } from './services/modal.service';
     AuthService,
     UserService,
     BucketToolsService,
-    ModalService
+    ModalService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })
