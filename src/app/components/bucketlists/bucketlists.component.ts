@@ -63,20 +63,19 @@ export class BucketlistComponent implements OnInit {
         this.bucketlistsService.getBucketlists(page)
             .subscribe(response => {
 
+                // If unauthorised, redirect to login page.
+                if (response.status == 401)
+                    return this.router.navigate(['/auth/login']);
+
                 this.bucketlists = [];
                 let bucketlists = response.json().bucketlists;
                 let links = response.json().links;
                 this.pages.previous = links[0].id;
                 this.pages.next = links[1].id;
                 this.pages.current = links[2].id;
-                console.log(this.pages.previous + " " + this.pages.next + " " + this.pages.current);
-
-                // If unauthorised, redirect to login page.
-                if (response.status == 401)
-                    this.router.navigate(['/auth/login'])
 
                 // Get Bucketlist objects and push them to array.
-                else if (bucketlists) {
+                if (bucketlists) {
                     for (let i = 0; i < bucketlists.length; i++) {
                         let bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
                         this.bucketlists.push(bucketlist);

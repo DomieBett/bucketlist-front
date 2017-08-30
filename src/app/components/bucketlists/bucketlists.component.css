@@ -30,6 +30,7 @@ body {
     float: left;
     margin: 1rem;
     position: relative;
+    border-top: 4px solid #000;
 }
 
 .demo-card-square.mdl-card:hover {
@@ -47,6 +48,17 @@ body {
 .demo-card-square > .mdl-card__accent {
     background: #ff9800;
 }
+
+.search-div {
+    height: 90vh;
+    border-left: 1px solid;
+}
+
+.bucketlists-div {
+    height: 90vh;
+    overflow: scroll;
+}
+
 
 .add-button {
     z-index:1;
