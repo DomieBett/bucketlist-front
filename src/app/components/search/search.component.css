@@ -1,16 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Cabin:400);
-
-.webdesigntuts-workshop form {
-	background: #111;
-	border: 1px solid #000;
-	border-radius: 5px;
-	box-shadow: inset 0 0 0 1px #272727;
-	display: inline-block;
-	font-size: 0px;
-	margin: 0 auto 0;
-	position: relative;
-	z-index: 1;
-}
+/*@import url(https://fonts.googleapis.com/css?family=Cabin:400);*/
 
 .search-input {
 	background: #222;	
@@ -48,6 +36,28 @@
     }
 }
 
-.search-results {
+.search-result {
+	margin-top: 5px;
 	clear: both;
+	width: 100%;
+	margin-left: -10%;
+}
+
+.search-result ul li {
+	list-style-type: none;
+}
+
+.search-result ul li a{
+	display: block;
+	width: 100%;
+	list-style-type: none;
+	padding: 5px;
+	margin: 2px;
+	padding-left: 15px;
+}
+
+.search-result ul li a:hover {
+	color: #000;
+	text-decoration: none;
+	border: 1px solid silver;
 }

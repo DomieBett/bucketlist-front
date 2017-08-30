@@ -6,8 +6,6 @@ import { UserService } from './../../../services/user.service';
 import { BucketToolsService } from './../../../services/bucket-tools.service';
 import { ModalService } from './../../../services/modal.service';
 
-
-import { BucketlistComponent } from './../bucketlists.component';
 import { BucketList } from './../../../models/bucketlist';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 
@@ -36,39 +34,61 @@ export class BucketItemsComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.getBucket(params['id']);
+            console.log(params['id']);
         });
     }
 
     getBucket(id){
 
-        this.itemService.getSingleBucket(id).subscribe(bucketlist => {
+        let response = this.itemService.getSingleBucket(id);
 
-        if (bucketlist){
-            this.bucket = this.bucketTools.parseBucketlists(bucketlist);
-        }
-        console.log(this.bucket);
+        if (!response)
+            return false
+
+        response.subscribe(response => {
+            if (response.status == 401)
+                this.router.navigate(['/auth/login'])
+            else if (response.status == 200)
+                this.bucket = this.bucketTools
+                    .parseBucketlists(response.json());
         });
     }
 
     addItem(){
-        this.itemService.addItem(
+
+        let response = this.itemService.addItem(
             this.ids.bucket_id,
             this.model.name
-        ).subscribe(item => {
-            this.getBucket(this.ids.bucket_id);
+        )
+
+        if (!response)
+            return false
+
+        response.subscribe(response => {
+
+            if (response.status == 401)
+                this.router.navigate(['/auth/login']);
+            else if (response.status == 201)
+                this.getBucket(this.ids.bucket_id);
         });
     }
 
     delete(){
 
-        this.itemService.deleteItem(
+        let response = this.itemService.deleteItem(
             this.ids.bucket_id,
             this.ids.item_id
-        ).subscribe(response => {
+        );
 
-            if(response){
-                this.getBucket(this.ids.bucket_id)
-            }
+        if (!response)
+            return false
+
+        response.subscribe(response => {
+
+            if (response.status == 401)
+                this.router.navigate(['/auth/login']);
+            else if (response.status == 200)
+                this.router.navigate(['/auth/login']);
         });
     }
 
@@ -76,17 +96,22 @@ export class BucketItemsComponent implements OnInit {
         let done: boolean = false;
         if (this.model.done)
             done = this.model.done
-
-        this.itemService.updateItem(
+        let response = this.itemService.updateItem(
             this.ids.bucket_id,
             this.ids.item_id,
             this.model.name,
             done
-        ).subscribe(response => {
+        )
 
-            if (response){
+        if (!response)
+            return false
+
+        response.subscribe(response => {
+
+            if (response.status == 401)
+                this.router.navigate(['/auth/login']);
+            else if (response.status == 201)
                 this.getBucket(this.ids.bucket_id);
-            }
         });
     }
 

@@ -3,7 +3,7 @@
     placeholder="Search" [(ngModel)]="searchQuery"
     class="search-input">
 
-<div class="search-results">
+<div class="search-result">
 	<ul *ngIf="bucketlists">
 	  <li *ngFor="let bucket of bucketlists | slice:0:9">
 	    <a (click)="openBucket(bucket.id)" target="_blank">

@@ -2,7 +2,7 @@
 
 <button class="back-button" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i></button>
 
-<div class="container">
+<!-- <div class="container">
     <div class="row" *ngIf="bucket">
         <h2> {{ bucket.name }} </h2>
         <div class="col-md-10 col-md-offset-2" class="items-holder" *ngFor="let item of bucket.items">
@@ -20,6 +20,64 @@
                 </div>
             </div>
         </div>
+        <div (click)="openModal('add-item-modal'); onAdd(bucket)" class="add-button">
+            <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
+        </div>
+    </div>
+</div> -->
+
+<div class="container">
+    <div class="table-holder" *ngIf="bucket">
+        <h2> {{ bucket.name }} </h2>
+
+        <table class="table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>#</th>
+                    <th> Item name</th>
+                    <th>Done</th>
+                    <th>Tools</th>
+                </tr>
+            </thead>
+            <tbody class="table-striped">
+
+                <tr class="table-row" *ngFor="let item of bucket.items">
+                    <th scope="row"> {{ item.id }} </th>
+                    <td> {{ item.name }} </td>
+                    <td class="done">
+                        <div class="done-holder">
+                            <label for="done">Done</label>
+                            <input type="checkbox" name="done" id="done">
+                        </div></td>
+                    <td class="tool-column">
+                        <div class="tools">
+                            <a (click)="openModal('update-item-modal'); onUpdate(bucket, item)"
+                                class="btn btn-primary edit"><i class="fa fa-pencil-square-o"></i></a>
+                            <a (click)="openModal('delete-item-modal'); onDelete(bucket, item)"
+                                class="btn btn-danger delete"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- <div class="col-md-10 col-md-offset-2" class="items-holder" *ngFor="let item of bucket.items">
+                    <div class="item-container">
+                        <div class="item">
+                            <p>{{ item.name }}</p>
+                        </div>
+                        <div class="done-holder">
+                            <label for="done">Done</label>
+                            <input type="checkbox" name="done" id="done">
+                        </div>
+                        <div class="tools">
+                            <a (click)="openModal('update-item-modal'); onUpdate(bucket, item)" class="tool edit"><i class="fa fa-pencil-square-o"></i></a>
+                            <a (click)="openModal('delete-item-modal'); onDelete(bucket, item)" class="tool delete"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+                </div> -->
+
+            </tbody>
+        </table>
+
         <div (click)="openModal('add-item-modal'); onAdd(bucket)" class="add-button">
             <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
         </div>

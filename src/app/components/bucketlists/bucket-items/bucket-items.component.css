@@ -22,6 +22,17 @@ h2 {
     font-size: 30px;
 }
 
+.thead-inverse{
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0 10px 0;
+    height: 50px;
+}
+
+.table-row:hover {
+    background-color: #dddddd;
+}
+
 .items-holder {  
     font-family:Georgia,serif,Times;
     border-radius: 5px;
@@ -69,6 +80,11 @@ label {
     font-style: italic;
 }
 
+.table-holder {
+    height: 80vh;
+    overflow: scroll;
+}
+
 .done-holder {
     float: left;
     padding-top: 10px;
@@ -81,23 +97,30 @@ label {
     cursor: pointer;
 }
 
+.done {
+    width: 20%;
+}
+
 .tools {
     color: white;
-    background: #004c06;
 }
 
 .tool {
     display: block;
     height: 35px;
-    padding-top: 10px;
-    padding-left: 10px;
+    border-radius: 1px;
     text-decoration: none;
     color: #004c06;
     float: right;
     display: inline-block;
     font-size: 20px;
-    margin-right: 5px;
     cursor: pointer;
+    padding: 3px;
+    margin-right: 5px;
+}
+
+.tool-column {
+    width: 10%;
 }
 
 .add-button {

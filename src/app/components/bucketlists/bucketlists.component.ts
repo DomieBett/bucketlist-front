@@ -72,7 +72,7 @@ export class BucketlistComponent implements OnInit {
             this.bucketlists = [];
             let bucketlists = response.json().bucketlists;
             let links = response.json().links;
-            this.pages.prevous = links[0].id;
+            this.pages.previous = links[0].id;
             this.pages.next = links[1].id;
             this.pages.current = links[2].id;
 
