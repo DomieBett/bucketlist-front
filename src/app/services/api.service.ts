@@ -10,7 +10,7 @@ import { UserService } from './user.service';
 export class ApiService {
     
     message: string;
-    baseUrl: string = "http://127.0.0.1:5000/"
+    baseUrl: string = "http://127.0.0.1:5000"
 
     constructor(
     	private http: Http,
@@ -21,6 +21,11 @@ export class ApiService {
     sendRequest(request:string, url:string, args) {
 
     	let options = this.user.getToken();
+
+    	if (!options){
+    		this.router.navigate(['/auth/login']);
+    		return false;
+    	}
     	let completeUrl = this.baseUrl + url;
 
     	if (request == "delete")

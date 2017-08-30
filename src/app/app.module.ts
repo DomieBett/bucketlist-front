@@ -23,6 +23,7 @@ import { UserService } from './services/user.service';
 import { BucketToolsService } from './services/bucket-tools.service';
 import { ModalService } from './services/modal.service';
 import { SearchService } from './services/search.service';
+import { ApiService } from './services/api.service';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { SearchService } from './services/search.service';
     UserService,
     BucketToolsService,
     ModalService,
-    SearchService
+    SearchService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })

@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 
 import { BucketList } from './../models/bucketlist';
 import { UserService } from './user.service';
-import { BucketToolsService } from './bucket-tools.service'
+import { BucketToolsService } from './bucket-tools.service';
+import { ApiService } from './api.service';
 
 
 @Injectable()
@@ -16,69 +17,57 @@ export class BucketlistsService {
         private http: Http,
         private router: Router,
         private user: UserService,
-        private bucketTools: BucketToolsService
+        private bucketTools: BucketToolsService,
+        private api: ApiService
     ) { }
 
     addBucketlist(name: string) {
 
-        //Get auth token.
-        let options = this.user.getToken()
-        if (options){
-            //Send post request to add bucketlist.
-            return this.http.post(
-                'http://127.0.0.1:5000/api/v1/bucketlists/',
-                {name: name}, options
-            ).map(response => response);
-        }
+        let url = "/api/v1/bucketlists/";
+        let args = { name: name };
+        let response = this.api.sendRequest("post", url, args);
+
+        if (response)
+            return response.map(response => response);
+        else
+            return response
     }
 
     updateBucketlist(id, name) {
 
-        let options = this.user.getToken();
-        if (options) {
+        let url = "/api/v1/bucketlists/";
+        let args = { name: name };
+        let response = this.api.sendRequest("put", url, args);
 
-            return this.http.put(
-                'http://127.0.0.1:5000/api/v1/bucketlists/'
-                + id, {name: name}, options
-            ).map(response => response);
-        }
+        if (response)
+            return response.map(response => response)
+        else
+            return response
     }
 
     deleteBucketlists(id) {
 
-        //Get auth token
-        let options = this.user.getToken();
-        if (options){
-            //Send delete request to delete bucketlist.
-            return this.http.delete(
-                'http://127.0.0.1:5000/api/v1/bucketlists/'
-                + id, options
-            ).map(response => response);
-        }
+        let url = "/api/v1/bucketlists/" + id;
+        let response = this.api.sendRequest("delete", url, null);
+
+        if (response)
+            return response.map(response => response)
+        else
+            return response
     }
 
     getBucketlists(page){
 
-        //Get auth token.
-        let options = this.user.getToken();
-
-        let url = 'http://127.0.0.1:5000/api/v1/bucketlists'
-        if (options){
-
-            if (page > 1){
-                url = url + "/?page=" + page;
-            }
-
-            //Send get request to retrieve all bucketlists.
-            return this.http.get(
-                url,
-                options
-            ).map(response => response);
+        let url = "/api/v1/bucketlists"
+        if (page > 1) {
+            url = url + "/?page=" + page;
         }
-        else{
-            //Redirect to login page if not logged in.
-            this.router.navigate(['/auth/login']);
-        }
+        let response = this.api.sendRequest("get", url, null);
+
+        if (response)
+            return response.map(response => response)
+        else
+            return response
     }
 }
 
