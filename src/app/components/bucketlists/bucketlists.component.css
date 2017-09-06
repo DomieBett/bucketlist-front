@@ -28,7 +28,7 @@ body {
 
 .demo-card-square.mdl-card {
     min-width: 300px;
-    width: 300px;
+    width: 60%;
     height: 200px;
     margin: 1rem;
     position: relative;
