@@ -1,3 +1,5 @@
+@import '~https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css';
+
 body {
     padding: 20px;
     background: #e2e2e2;
@@ -9,15 +11,15 @@ body {
 }
 
 .bucket-holder {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid silver;
-    border-radius: 2px;
+    margin: 0 auto;
+    border-radius: 1px;
+    position: relative;
+    overflow: auto;
+    text-align: center;
 }
 
-.bucket-holder:hover {
-    transform: scale(1.1);
-    transition: all 0.2s ease-in-out;
+.centered {
+    display: inline-block;
 }
 
 .close {
@@ -25,15 +27,16 @@ body {
 }
 
 .demo-card-square.mdl-card {
-    width: 300px;
+    min-width: 300px;
+    width: 60%;
     height: 200px;
-    float: left;
     margin: 1rem;
     position: relative;
+    /*border-top: 4px solid #186cf4;*/
 }
 
 .demo-card-square.mdl-card:hover {
-    transform: scale(0.96);
+    transform: scale(1.01);
     box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14),
      0 3px 14px 2px rgba(0, 0, 0, .12),
      0 5px 5px -3px rgba(0, 0, 0, .2);
@@ -48,21 +51,35 @@ body {
     background: #ff9800;
 }
 
+.search-div {
+    height: 90vh;
+    border-left: 1px solid;
+}
+
+.bucketlists-div {
+    height: 90vh;
+    overflow: scroll;
+}
+
+
 .add-button {
     z-index:1;
     position: fixed;
     right: 20px;
     bottom: 20px;
-    border: 1px solid #5facef;
+    border: 1px solid #000;
     border-radius: 40px;
-    background: #5facef;
+    background: #1f7f5c;
 }
 
 .add-button:hover {
-    transform: scale(1.1);
-    -webkit-transition: ease-in-out 0.5s;
-    -moz-transition: ease-in-out 0.5s;
-    transition: ease-in-out 0.5s;
+    transform: scale(1.02);
+    -webkit-transition: ease-in-out 0.1s;
+    -moz-transition: ease-in-out 0.1s;
+    transition: ease-in-out 0.1s;
+
+
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.5, #1f7f5c), color-stop(1.5, #000) );
 }
 
 #add-button {
@@ -137,4 +154,37 @@ body.modal-open {
     display: inline-block;
     padding: 5px;
     margin: 5px;
+}
+
+.papers,.papers:before,.papers:after {
+    background-color:#fff;
+    border:1px solid #ccc;
+    box-shadow:inset 0 0 30px rgba(0,0,0,0.1),1px 1px 3px rgba(0,0,0,0.2);
+}
+.papers {
+    position:relative;
+    width:90%;
+    padding:2em;
+    margin:0px auto;
+    margin-top:40px;
+    font-size:12px;
+    /*border: 1px solid #1f7f5c;*/
+}
+.papers:before,.papers:after {
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    -webkit-transform:rotateZ(2.5deg);
+    -o-transform:rotate(2.5deg);
+    transform:rotateZ(2.5deg);
+    z-index:-1;
+    /*background-color:  #1f7f5c; */
+}
+.papers:after {
+    -webkit-transform:rotateZ(-2.5deg);
+    -o-transform:rotate(-2.5deg);
+    transform:rotateZ(-2.5deg);
 }

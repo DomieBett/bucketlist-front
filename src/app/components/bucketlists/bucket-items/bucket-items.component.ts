@@ -1,15 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 
 import { BucketItemsService } from './../../../services/bucket-items.service';
 import { UserService } from './../../../services/user.service';
 import { BucketToolsService } from './../../../services/bucket-tools.service';
 import { ModalService } from './../../../services/modal.service';
+import { AuthService } from './../../../services/auth.service';
 
-
-import { BucketlistComponent } from './../bucketlists.component';
 import { BucketList } from './../../../models/bucketlist';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 
 
 @Component({
@@ -30,45 +29,83 @@ export class BucketItemsComponent implements OnInit {
         private modalService: ModalService,
         private route: ActivatedRoute,
         private router: Router,
-        private location: Location
+        private location: Location,
+        private authService: AuthService
     ) { }
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.getBucket(params['id']);
+            console.log(params['id']);
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
     }
 
     getBucket(id){
 
-        this.itemService.getSingleBucket(id).subscribe(bucketlist => {
+        let response = this.itemService.getSingleBucket(id);
 
-        if (bucketlist){
-            this.bucket = this.bucketTools.parseBucketlists(bucketlist);
-        }
-        console.log(this.bucket);
+        if (!response)
+            return false
+
+        response.subscribe(response => {
+            if (response.status == 401)
+                this.router.navigate(['/auth/login'])
+            else if (response.status == 200)
+                this.bucket = this.bucketTools
+                    .parseBucketlists(response.json());
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
     }
 
     addItem(){
-        this.itemService.addItem(
+
+        let response = this.itemService.addItem(
             this.ids.bucket_id,
             this.model.name
-        ).subscribe(item => {
-            this.getBucket(this.ids.bucket_id);
+        )
+
+        if (!response)
+            return false
+
+        response.subscribe(response => {
+
+            if (response.status == 401)
+                this.router.navigate(['/auth/login']);
+            else if (response.status == 201)
+                this.getBucket(this.ids.bucket_id);
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
     }
 
     delete(){
 
-        this.itemService.deleteItem(
+        let response = this.itemService.deleteItem(
             this.ids.bucket_id,
             this.ids.item_id
-        ).subscribe(response => {
+        );
 
-            if(response){
-                this.getBucket(this.ids.bucket_id)
+        if (!response)
+            return false
+
+        response.subscribe(response => {
+
+            if (response.status == 401)
+                this.router.navigate(['/auth/login']);
+            else if (response.status == 200){
+                this.getBucket(this.ids.bucket_id);
+                console.log("Succesfully deleted" + this.ids.bucketid);
             }
+
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
     }
 
@@ -77,17 +114,38 @@ export class BucketItemsComponent implements OnInit {
         if (this.model.done)
             done = this.model.done
 
-        this.itemService.updateItem(
+        console.log(done);
+        let response = this.itemService.updateItem(
             this.ids.bucket_id,
             this.ids.item_id,
             this.model.name,
             done
-        ).subscribe(response => {
+        )
 
-            if (response){
+        if (!response)
+            return false
+
+        response.subscribe(response => {
+
+            if (response.status == 401)
+                this.router.navigate(['/auth/login']);
+            else if (response.status == 201)
                 this.getBucket(this.ids.bucket_id);
-            }
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
+    }
+
+    errorHandler(error){
+        if (error.status == 401){
+            this.authService.logout()
+            return this.router.navigate(['/auth/login']);
+        }
+        else {
+            let url = "error" + error.status;
+            this.router.navigate([url]);
+        }
     }
 
     openModal(id: string){

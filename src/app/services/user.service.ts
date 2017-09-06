@@ -26,4 +26,12 @@ export class UserService {
             return false
         }
     }
+
+    getName(){
+      let user_name:string = localStorage.getItem('user_name');
+      if (user_name)
+        return user_name;
+      else
+        return "Guest";
+    }
 }

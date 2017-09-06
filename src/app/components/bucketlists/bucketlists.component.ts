@@ -6,6 +6,7 @@ import { BucketItemsService } from './../../services/bucket-items.service';
 import { BucketToolsService } from './../../services/bucket-tools.service';
 import { UserService } from './../../services/user.service';
 import { ModalService } from './../../services/modal.service';
+import { AuthService } from './../../services/auth.service';
 
 import { BucketList } from './../../models/bucketlist';
 
@@ -34,7 +35,8 @@ export class BucketlistComponent implements OnInit {
         private bucketTools: BucketToolsService,
         private modalService: ModalService,
         private router: Router,
-        private user: UserService
+        private user: UserService,
+        private authService: AuthService
     ) { }
 
     ngOnInit() {
@@ -44,84 +46,102 @@ export class BucketlistComponent implements OnInit {
 
     addBucketlist(){
 
-        // Send data to service add bucketlist function.
-        this.bucketlistsService.addBucketlist(this.model.name)
-            .subscribe(response => {
+        let response = this.bucketlistsService.addBucketlist(this.model.name)
 
-            let bucketlist = response.json();
+        if (!response)
+            return false
 
-            // If unauthorised, redirect to login page.
+        response.subscribe(response => {
+
             if (response.status == 401)
                 this.router.navigate(['/auth/login']);
-
-            else if (bucketlist)
-                console.log(bucketlist);
+            else if (response.status == 201)
+                this.getBucketlists(this.pages.current);
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
     }
 
     getBucketlists(page){
-        this.bucketlistsService.getBucketlists(page)
-            .subscribe(response => {
 
-                this.bucketlists = [];
-                let bucketlists = response.json().bucketlists;
-                let links = response.json().links;
-                this.pages.previous = links[0].id;
-                this.pages.next = links[1].id;
-                this.pages.current = links[2].id;
-                console.log(this.pages.previous + " " + this.pages.next + " " + this.pages.current);
+        let response = this.bucketlistsService.getBucketlists(page);
 
-                // If unauthorised, redirect to login page.
-                if (response.status == 401)
-                    this.router.navigate(['/auth/login'])
+        if (!response){
+            return "No response";
+        }
 
-                // Get Bucketlist objects and push them to array.
-                else if (bucketlists) {
-                    for (let i = 0; i < bucketlists.length; i++) {
-                        let bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
-                        this.bucketlists.push(bucketlist);
-                    }
+        response.subscribe(response => {
+            console.log("We got there");
+            console.log("Second Component " + response.json());
+
+            this.bucketlists = [];
+            let bucketlists = response.json().bucketlists;
+            let links = response.json().links;
+            this.pages.previous = links[0].id;
+            this.pages.next = links[1].id;
+            this.pages.current = links[2].id;
+
+            if (bucketlists) {
+                for (let i = 0; i < bucketlists.length; i++)
+                {
+                    let bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
+                    this.bucketlists.push(bucketlist);
                 }
-            });
-    }
-
-    getPage(page) {
-        console.log("Go to page: " + page);
-        if (page)
-            this.getBucketlists(page);
+            }
+        },
+        (err: any) => {
+            this.errorHandler(err);
+        });
     }
 
     updateBucketlist(){
         let id = this.ids.bucket_id;
-        this.bucketlistsService.updateBucketlist(
+        let response = this.bucketlistsService.updateBucketlist(
             id, this.model.name)
-            .subscribe(response => {
-                let status = response.json().status;
 
-                if (response.status == 401)
-                    this.router.navigate(['/auth/login'])
-                else if (response){
-                    this.getBucketlists(this.pages.current);
-                }
-            })
+        if (!response)
+            return
+        response.subscribe(response => {
+
+            if (response.status == 401)
+                return this.router.navigate(['/auth/login'])
+            else if (response.status == 201)
+                this.getBucketlists(this.pages.current);
+
+        },
+        (err: any) => {
+            this.errorHandler(err);
+        });
     }
 
     deleteBucketlist(){
-        // Deletes bucketlists.
+
         let id = this.ids.bucket_id;
-        this.bucketlistsService.deleteBucketlists(id)
-            .subscribe(response => {
+        let response = this.bucketlistsService.deleteBucketlists(id)
 
-                let status = response.json().status;
+        if (!response)
+            return
 
-                // Redirect to login page if unauthorised.
-                if (response.status == 401)
-                    this.router.navigate(['/auth/login'])
-                else if (status == "success"){
-                    this.getBucketlists(this.pages.current);
-                }
-            });
+        response.subscribe(response => {
+
+            if (response.status == 401)
+                this.router.navigate(['/auth/login']);
+
+            else if (response.json().status == "success")
+                this.getBucketlists(this.pages.current)
+        },
+        (err: any) => {
+            this.errorHandler(err);
+        });
+
         this.router.navigate(['bucketlists/']);
+    }
+
+    getPage(page) {
+
+        if (page)
+            this.getBucketlists(page);
     }
 
     openModal(id: string){
@@ -151,5 +171,14 @@ export class BucketlistComponent implements OnInit {
             + bucket.id + '/items']);
     }
 
-    onAdd(){ }
+    errorHandler(error){
+        if (error.status == 401){
+            this.authService.logout();
+            return this.router.navigate(['/auth/login']);
+        }
+        else {
+            let url = "error" + error.status;
+            this.router.navigate([url]);
+        }
+    }
 }

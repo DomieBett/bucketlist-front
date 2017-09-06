@@ -1,0 +1,69 @@
+<!-- <div>
+	<nav class="navbar navbar-blue">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['/']"></a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggle"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            
+            <div class="collapse navbar-collapse" id="#nav-toggle">
+            
+                <ul class="nav navbar-nav navbar-right mr-auto mt-2 mt-md-0">
+                	<li class="nav-item"><a class="nav-link"><i class="fa fa-cog fa-spin"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">{{ user_name }}</a></li>
+                    <li class="nav-item"> 
+                    <a (click)="logout()" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-power-off" aria-hidden="true"></i> Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div> -->
+
+<div>
+    <nav class="navbar navbar-inverse" style="border-radius: 0px">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" [routerLink]="['/']">{{ title }}</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active-link"><a href="#">Home</a></li>
+            <li><a>Page 2</a></li>
+            <li><a href="#">Page 3</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"><app-search></app-search></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="glyphicon glyphicon-user"></span> {{ user_name }} <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Page 1-1</a></li>
+                <li><a href="#">Page 1-2</a></li>
+                <li><a href="#">Page 1-3</a></li>
+              </ul>
+            </li>
+            <li><a (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+</div>

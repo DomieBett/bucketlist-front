@@ -1,53 +1,53 @@
+<app-navbar></app-navbar>
 <div>
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
+    <!-- <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css"> -->
     
     <div *ngIf="bucketlists" class="row bucketlists-holder">
-
-        <div *ngFor="let bucket of bucketlists"
-            class="mdl-card mdl-shadow--2dp demo-card-square">
-            <div (click)="onSelect(bucket)">
-                <div class="mdl-card__title mdl-card--expand">
-                <h2 class="mdl-card__title-text">{{ bucket.id }}. {{ bucket.name }}</h2>
+        <div class="bucketlists-div">
+            <div class="bucket-holder">
+            <div *ngFor="let bucket of bucketlists"
+                class="mdl-card mdl-shadow--2dp demo-card-square papers centered">
+                <div (click)="onSelect(bucket)">
+                    <div class="mdl-card__title mdl-card--expand">
+                    <h2 class="mdl-card__title-text">{{ bucket.id }}. {{ bucket.name }}</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        Created by: {{ bucket.created_by }}<br>
+                        Items: {{ bucket.items.length }}
+                    </div>
                 </div>
-                <div class="mdl-card__supporting-text">
-                    Created by: {{ bucket.created_by }}<br>
-                    Items: {{ bucket.items.length }}
+
+                <div class="mdl-card__actions mdl-card--border">
+                    <a (click)="openModal('update-bucket-modal'); onUpdate(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect edit-button"
+                        data-toggle="tooltip" title="Edit">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </a>
+                    <a (click)="openModal('delete-bucket-modal'); onDelete(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect delete-button"
+                        data-toggle="tooltip" title="Delete">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+            </div>
+            </div>
+
+            <div id="paginate">
+                <div class="paginate-holder wrapper">
+                    <!-- <ul>
+                        <li><a *ngIf="pages.previous" (click)="getPage(pages.previous)">&lang; previous | </a></li>
+                        <li *ngIf="pages.next"><a (click)="getPage(pages.next)"> | next &rang;</a></li>
+                    </ul> -->
+                    <ul class="pager">
+                        <li><a *ngIf="pages.previous" (click)="getPage(pages.previous)" class="previous">Previous</a></li>
+                        <li><a *ngIf="pages.next" (click)="getPage(pages.next)" class="next">Next</a></li>
+                      </ul>
                 </div>
             </div>
 
-            <div class="mdl-card__actions mdl-card--border">
-                <a (click)="openModal('update-bucket-modal'); onUpdate(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
-                    data-toggle="tooltip" title="Edit">
-                    <i class="fa fa-pencil-square-o"></i>
-                </a>
-                <a (click)="openModal('delete-bucket-modal'); onDelete(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
-                    data-toggle="tooltip" title="Delete">
-                    <i class="fa fa-trash-o"></i>
-                </a>
-            </div>
         </div>
+    </div>
 
-        <div (click)="openModal('add-bucket-modal')" class="add-button">
-            <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
-        </div>
-
-        <div id="paginate">
-            <div class="paginate-holder wrapper">
-                <ul>
-                    <li><a *ngIf="pages.previous" (click)="getPage(pages.previous)">&lang; previous | </a></li>
-                    <!-- <li><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href="" class="active">4</a></li>
-                    <li><a href="">5</a></li>
-                    <li><a href="" class="more">&hellip;</a></li>
-                    <li><a href="">98</a></li>
-                    <li><a href="">99</a></li>
-                    <li><a href="">100</a></li> -->
-                    <li *ngIf="pages.next"><a (click)="getPage(pages.next)"> | next &rang;</a></li>
-                </ul>
-            </div>
-        </div>
+    <div (click)="openModal('add-bucket-modal')" class="add-button">
+        <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
     </div>
 
     <modal id="add-bucket-modal">
@@ -55,14 +55,13 @@
             <div class="custom-modal-body">
                 <button (click)="closeModal('add-bucket-modal');">Close</button>
                 <h4>Add Bucketlist.</h4>
-                    <form name="form" (ngSubmit)="f.form.valid && addBucketlist()" #f="ngForm" novalidate>
+                    <form name="form" (ngSubmit)="f.form.valid && addBucketlist()" #f="ngForm" validate>
                         <div class="form-group">
-                            <label for="bucketlist-name">Bucketlist Name:</label>
-                            <input id="bucketlist-name" name="bucketlist-name"
-                                    type="text" [(ngModel)]="model.name"
+                            <label for="name">Bucketlist Name:</label>
+                            <input id="name" name="name"
+                                    type="text" required minlength="5" [(ngModel)]="model.name"
                                     #username="ngModel" placeholder="Enter bucketlist name"
-                                    class="form-control"
-                                    required />
+                                    class="form-control"/>
                         </div>
                         <div>
                             <button (click)="closeModal('add-bucket-modal')" type="submit"

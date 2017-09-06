@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/map'
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +12,10 @@ export class AuthService {
     // Variable to save error messages.
     message: string;
 
-    constructor(private http: Http) { }
+    constructor(
+        private http: Http,
+        private router: Router
+    ) { }
 
     login(email: string, password: string){
 
@@ -21,18 +26,19 @@ export class AuthService {
         ).map((response: Response) => {
 
             // Get results from login attempt.
-            let user = response.json();
+            let resp = response.json();
 
             // Add auth token to local storage if login succesful.
-            if (user && user.auth_token){
-                localStorage.setItem('auth_token', user.auth_token);
+            if (resp && resp.auth_token){
+                localStorage.setItem('auth_token', resp.auth_token);
+                localStorage.setItem('user_name', resp.user);
                 this.message = null;
             }
             // Get error message.
             else {
-                this.message = user.message;
+                this.message = resp.message;
             }
-            return user;
+            return resp;
         });
     }
 
@@ -46,16 +52,17 @@ export class AuthService {
         ).map((response: Response) => {
 
             // Results from registration attempt.
-            let user = response.json();
-            if (user && user.auth_token){
+            let resp = response.json();
+            if (resp && resp.auth_token){
 
                 // Save auth token to local storage.
-                localStorage.setItem('auth_token', user.auth_token);
+                localStorage.setItem('auth_token', resp.auth_token);
+                localStorage.setItem('user_name', resp.user);
                 this.message = null;
             }
             else{
                 // Get error message.
-                this.message = user.message;
+                this.message = resp.message;
             }
         });
     }

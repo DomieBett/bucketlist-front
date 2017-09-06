@@ -6,30 +6,30 @@ import { RegisterComponent } from './../components/auth/register/register.compon
 import { LoginComponent } from './../components/auth/login/login.component';
 import { BucketlistComponent } from './../components/bucketlists/bucketlists.component';
 import { BucketItemsComponent } from './../components/bucketlists/bucket-items/bucket-items.component';
+import { ErrorComponent } from './../components/error/error.component';
 
 
 const routes: Routes = [
     {
-        path: '', redirectTo: '/bucketlists', pathMatch: 'full'
-    },
-    { 
-        path: 'auth',
-        children: [
-            {   path: 'login', component: LoginComponent },
-            {   path: 'register',   component: RegisterComponent }
-        ]
+        path: '', redirectTo: 'bucketlists', pathMatch: 'full'
     },
     {
-        path: 'bucketlists',
-        children: [
-            {   path: '', component: BucketlistComponent },
-            {   
-                path: ':id',
-                children: [
-                    {   path: 'items', component: BucketItemsComponent }
-                ]
-             }
-        ]
+        path: 'auth/login', component: LoginComponent
+    },
+    {
+        path: 'auth/register', component: RegisterComponent
+    },
+    {
+        path: 'bucketlists', component: BucketlistComponent
+    },
+    {
+        path: 'bucketlists/:id/items', component: BucketItemsComponent
+    },
+    {
+        path: 'error/:status', component: ErrorComponent
+    },
+    {
+        path: '**', redirectTo: '/error/404'
     },
 ];
 
