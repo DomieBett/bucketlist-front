@@ -1,14 +1,12 @@
 <input
     (keyup)="searchTerm$.next($event.target.value)"
     placeholder="Search" [(ngModel)]="searchQuery"
-    class="search-input">
+    class="form-control search-input options">
 
-<div class="search-result">
-	<ul *ngIf="bucketlists">
-	  <li *ngFor="let bucket of bucketlists | slice:0:9">
-	    <a (click)="openBucket(bucket.id)" target="_blank">
-	      {{ bucket.name }}
-	    </a>
-	  </li>
-	</ul>
-</div>
+<ul class="subnav" *ngIf="bucketlists">
+  <li *ngFor="let bucket of bucketlists | slice:0:9">
+    <a (click)="openBucket(bucket.id)" target="_blank">
+      {{ bucket.name }}
+    </a>
+  </li>
+</ul>

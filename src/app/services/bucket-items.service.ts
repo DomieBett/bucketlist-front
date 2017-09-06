@@ -23,7 +23,6 @@ export class BucketItemsService {
         let url = "/api/v1/bucketlists/" + id;
         let response = this.api.sendRequest("get", url, null);
 
-        console.log(response);
         if (response)
             return response.map(response => response);
         else
@@ -62,7 +61,7 @@ export class BucketItemsService {
         let response = this.api.sendRequest("delete", url, null);
 
         if (response)
-            return response.map(response => response.json());
+            return response.map(response => response);
         else
             return response
     }

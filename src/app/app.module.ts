@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '@angular/material';
 
 import { AppRoutingModule } from './routes/app-routing.module';
 
@@ -15,6 +16,7 @@ import { BucketItemsComponent } from './components/bucketlists/bucket-items/buck
 import { ModalComponent } from './directives/modal.component';
 import { SearchComponent } from './components/search/search.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ErrorComponent } from './components/error/error.component';
 
 import { BucketlistsService } from './services/bucketlists.service';
 import { BucketItemsService } from './services/bucket-items.service';
@@ -35,13 +37,15 @@ import { ApiService } from './services/api.service';
     BucketItemsComponent,
     ModalComponent,
     SearchComponent,
-    NavbarComponent
+    NavbarComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    MaterialModule,
   ],
   providers: [
     HttpClient,

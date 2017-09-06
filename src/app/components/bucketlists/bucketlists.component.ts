@@ -6,6 +6,7 @@ import { BucketItemsService } from './../../services/bucket-items.service';
 import { BucketToolsService } from './../../services/bucket-tools.service';
 import { UserService } from './../../services/user.service';
 import { ModalService } from './../../services/modal.service';
+import { AuthService } from './../../services/auth.service';
 
 import { BucketList } from './../../models/bucketlist';
 
@@ -34,7 +35,8 @@ export class BucketlistComponent implements OnInit {
         private bucketTools: BucketToolsService,
         private modalService: ModalService,
         private router: Router,
-        private user: UserService
+        private user: UserService,
+        private authService: AuthService
     ) { }
 
     ngOnInit() {
@@ -55,6 +57,9 @@ export class BucketlistComponent implements OnInit {
                 this.router.navigate(['/auth/login']);
             else if (response.status == 201)
                 this.getBucketlists(this.pages.current);
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
     }
 
@@ -62,12 +67,13 @@ export class BucketlistComponent implements OnInit {
 
         let response = this.bucketlistsService.getBucketlists(page);
 
-        if (!response)
-            return
-        response.subscribe(response => {
+        if (!response){
+            return "No response";
+        }
 
-            if (response.status == 401)
-                return this.router.navigate(['/auth/login']);
+        response.subscribe(response => {
+            console.log("We got there");
+            console.log("Second Component " + response.json());
 
             this.bucketlists = [];
             let bucketlists = response.json().bucketlists;
@@ -83,6 +89,9 @@ export class BucketlistComponent implements OnInit {
                     this.bucketlists.push(bucketlist);
                 }
             }
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
     }
 
@@ -100,6 +109,9 @@ export class BucketlistComponent implements OnInit {
             else if (response.status == 201)
                 this.getBucketlists(this.pages.current);
 
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
     }
 
@@ -118,6 +130,9 @@ export class BucketlistComponent implements OnInit {
 
             else if (response.json().status == "success")
                 this.getBucketlists(this.pages.current)
+        },
+        (err: any) => {
+            this.errorHandler(err);
         });
 
         this.router.navigate(['bucketlists/']);
@@ -154,5 +169,16 @@ export class BucketlistComponent implements OnInit {
         this.selectedBucket = bucket;
         this.router.navigate(['bucketlists/'
             + bucket.id + '/items']);
+    }
+
+    errorHandler(error){
+        if (error.status == 401){
+            this.authService.logout();
+            return this.router.navigate(['/auth/login']);
+        }
+        else {
+            let url = "error" + error.status;
+            this.router.navigate([url]);
+        }
     }
 }

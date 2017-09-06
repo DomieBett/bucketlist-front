@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from './../../services/auth.service';
+import { UserService } from './../../services/user.service';
 
 @Component({
 	selector: 'app-navbar',
@@ -11,14 +12,16 @@ import { AuthService } from './../../services/auth.service';
 export class NavbarComponent implements OnInit {
 
 	title: string = "Bucketlist";
+	user_name: string;
 	
 	constructor(
 		private authService: AuthService,
-		private router: Router
+		private router: Router,
+		private user: UserService
 	) { }
 
 	ngOnInit() {
-		
+		this.user_name = this.user.getName()
 	}
 
 	logout(){

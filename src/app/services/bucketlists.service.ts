@@ -35,7 +35,7 @@ export class BucketlistsService {
 
     updateBucketlist(id, name) {
 
-        let url = "/api/v1/bucketlists/";
+        let url = "/api/v1/bucketlists/" + id;
         let args = { name: name };
         let response = this.api.sendRequest("put", url, args);
 
