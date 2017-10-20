@@ -1,5 +1,5 @@
 
-<div>
+<div class="container">
 
     <div class="message" *ngIf="message">
         {{ message }}
@@ -14,25 +14,22 @@
                     <label for="email-input">Email</label>
                     <input id="email-input" type="text" name="email"
                             [(ngModel)]="model.email" #username="ngModel"
-                            placeholder="Enter your email" required>
+                            placeholder="Enter your email" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="password-input">Password</label>
                     <input id="password-input" type="password" name="password"
                             [(ngModel)]="model.password" placeholder="Enter your password"
-                            required>
+                            class="form-control" required>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary form-control">Login</button>
                 </div>
                 <div class="link-holder">
-                    <p>Dont have an account? <a [routerLink]="['/auth/register']" class="btn btn-link">Register</a></p>
+                    <p>Dont have an account? <a [routerLink]="['/auth/register']"
+                      class="btn btn-link">Register</a> - <a href="#">Forgot Password</a></p>
                 </div>
             </form>
-					
-            <div class="login-help">
-                <a [routerLink]="['/auth/register']">Register</a> - <a href="#">Forgot Password</a>
-            </div>
         </div>
     </div>
 </div>

@@ -1,12 +1,14 @@
 
 .container {
-    height: 80vh;
+    height: 90vh;
+    background-color: #fff;
     overflow: scroll;
+    border-radius: 10px;
     padding-right: 20px;
     padding-bottom: 40px;
-    -moz-box-shadow:0px 10px 10px #eaf5ff;
-    -webkit-box-shadow:0px 10px 10px #eaf5ff;
-    box-shadow:0px 10px 10px #eaf5ff;
+    -moz-box-shadow:0px 3px 3px #eaf5ff;
+    -webkit-box-shadow:0px 3px 3px #eaf5ff;
+    box-shadow:0px 3px 3px #eaf5ff;
 }
 
 h2 {
@@ -34,7 +36,7 @@ h2 {
     background-color: #dddddd;
 }
 
-.items-holder {  
+.items-holder {
     font-family:Georgia,serif,Times;
     border-radius: 5px;
     width: 80%;
@@ -54,7 +56,7 @@ h2 {
     padding: 5px 10px 5px 10px;
 }
 
-.items-holder:hover { 
+.items-holder:hover {
     transform: scale(0.99);
     -moz-box-shadow:10px 10px 20px #eaf5ff;
     -webkit-box-shadow:10px 10px 20px #eaf5ff;
@@ -62,7 +64,7 @@ h2 {
 }
 
 .items-holder ul div:active{
-    
+
 }
 
 .items-holder ul li div {
@@ -125,34 +127,6 @@ label {
     width: 10%;
 }
 
-.add-button {
-    z-index:1;
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    border: 1px solid #5facef;
-    border-radius: 40px;
-    background: #5facef;
-}
-
-.add-button:hover {
-    transform: scale(1.1);
-    -webkit-transition: ease-in-out 0.5s;
-    -moz-transition: ease-in-out 0.5s;
-    transition: ease-in-out 0.5s;
-}
-
-#add-button {
-    text-align: center;
-    vertical-align: middle;
-    font-weight: bold;
-    font-size: 40px;
-    height: 40px;
-    width: 40px;
-    margin: 10px;
-    color: white;
-}
-
 modal {
     /* modals are hidden by default */
     display: none;
@@ -168,7 +142,7 @@ modal {
 
     /* z-index must be higher than .modal-background */
     z-index: 1000;
-    
+
     /* enables scrolling for tall modals */
     overflow: auto;
 }
@@ -192,7 +166,7 @@ modal {
     /* semi-transparent black  */
     background-color: #000;
     opacity: 0.75;
-    
+
     /* z-index must be below .modal and above everything else  */
     z-index: 900;
 }

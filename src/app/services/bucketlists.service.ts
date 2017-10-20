@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions }from '@angular/http'
+import { Http, Response, RequestOptions }from '@angular/http';
 import { Router } from '@angular/router';
 
 import { BucketList } from './../models/bucketlist';
@@ -23,51 +23,51 @@ export class BucketlistsService {
 
     addBucketlist(name: string) {
 
-        let url = "/api/v1/bucketlists/";
-        let args = { name: name };
-        let response = this.api.sendRequest("post", url, args);
+        const url = '/bucketlists/';
+        const args = { name: name };
+        const response = this.api.sendRequest('post', url, args);
 
         if (response)
             return response.map(response => response);
         else
-            return response
+            return response;
     }
 
     updateBucketlist(id, name) {
 
-        let url = "/api/v1/bucketlists/" + id;
-        let args = { name: name };
-        let response = this.api.sendRequest("put", url, args);
+        const url = '/bucketlists/' + id;
+        const args = { name: name };
+        const response = this.api.sendRequest('put', url, args);
 
         if (response)
-            return response.map(response => response)
+            return response.map(response => response);
         else
-            return response
+            return response;
     }
 
     deleteBucketlists(id) {
 
-        let url = "/api/v1/bucketlists/" + id;
-        let response = this.api.sendRequest("delete", url, null);
+        const url = '/bucketlists/' + id;
+        const response = this.api.sendRequest('delete', url, null);
 
         if (response)
-            return response.map(response => response)
+            return response.map(response => response);
         else
-            return response
+            return response;
     }
 
     getBucketlists(page){
 
-        let url = "/api/v1/bucketlists"
+        let url = '/bucketlists';
         if (page > 1) {
-            url = url + "/?page=" + page;
+            url = url + '/?page=' + page;
         }
-        let response = this.api.sendRequest("get", url, null);
+        const response = this.api.sendRequest('get', url, null);
 
         if (response)
-            return response.map(response => response)
+            return response.map(response => response);
         else
-            return response
+            return response;
     }
 }
 

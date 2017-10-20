@@ -1,26 +1,11 @@
-.navbar-blue {
-	background-color: #186cf4;
-	border-color: #186cf4;
+@import '~https://fonts.googleapis.com/css?family=Dancing+Script';
+
+.navbar-brand {
+	font-family: 'Dancing Script', cursive;
+	font-size: 30px;
 }
 
-.navbar-blue a {
-	color: #fff;
-}
-
-.dropdown-menu li a {
-	color: #000;
-}
-
-.active-link {
-	background-color: #1f7f5c;
-}
-
-#options a{
-    border-left: 0 none;
-}
-#options>a {
-    /*background-image: url(triangle.png);*/
-    background-position: 85% center;
-    background-repeat: no-repeat;
-    padding-right: 42px;
+.form-inline input, .form-inline button{
+	height: 40px;
+	margin: 5px;
 }
