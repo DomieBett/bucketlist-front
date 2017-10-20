@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { Router } from '@angular/router';
+import {ApiService} from './api.service';
 
 @Injectable()
 export class AuthService {
@@ -14,61 +15,59 @@ export class AuthService {
 
     constructor(
         private http: Http,
-        private router: Router
+        private router: Router,
+        private api: ApiService
     ) { }
 
-    login(email: string, password: string){
+    setLoginCredentials(response) {
+      {
+        // Results from registration attempt.
+        const resp = response.json();
+        if (resp && resp.auth_token) {
 
-        //Log in function.
-        return this.http.post(
-            'http://127.0.0.1:5000/auth/login',
-            {email: email, password: password}
-        ).map((response: Response) => {
+          // Save auth token to local storage.
+          localStorage.setItem('auth_token', resp.auth_token);
+          localStorage.setItem('user_name', resp.user);
+          this.message = null;
+        } else {
+          // Get error message.
+          this.message = resp.message;
+        }
 
-            // Get results from login attempt.
-            let resp = response.json();
+        return resp;
+      }
+    }
 
-            // Add auth token to local storage if login succesful.
-            if (resp && resp.auth_token){
-                localStorage.setItem('auth_token', resp.auth_token);
-                localStorage.setItem('user_name', resp.user);
-                this.message = null;
-            }
-            // Get error message.
-            else {
-                this.message = resp.message;
-            }
-            return resp;
-        });
+    login(email: string, password: string) {
+
+      const url = '/auth/login/';
+      const args = {email: email, password: password};
+      const response = this.api.sendRequest('post', url, args, 'auth');
+
+      if (response) {
+        console.log('Logging in');
+        return response.map(resp => this.setLoginCredentials(resp));
+      } else {
+        console.log('Naah');
+        return null;
+      }
     }
 
     register(name: string, email: string, password: string){
-        //Register user function.
+      const url = '/auth/register/';
+      const args = {name: name, email: email, password: password};
+      const response = this.api.sendRequest('post', url, args, 'auth');
 
-        //Send post request with user registration details.
-        return this.http.post(
-            'http://127.0.0.1:5000/auth/register',
-            {name: name, email: email, password: password}
-        ).map((response: Response) => {
-
-            // Results from registration attempt.
-            let resp = response.json();
-            if (resp && resp.auth_token){
-
-                // Save auth token to local storage.
-                localStorage.setItem('auth_token', resp.auth_token);
-                localStorage.setItem('user_name', resp.user);
-                this.message = null;
-            }
-            else{
-                // Get error message.
-                this.message = resp.message;
-            }
-        });
+      if (response) {
+        return response.map(resp => this.setLoginCredentials(resp));
+      } else {
+        return null;
+      }
     }
 
-    logout(){
-        // Log out by removing the auth token from storage.
-        localStorage.removeItem('auth_token')
+    logout() {
+        // Log out by removing the auth token and user from storage.
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user_name');
     }
 }

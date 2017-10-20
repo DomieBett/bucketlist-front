@@ -12,6 +12,7 @@ import { UserService } from './services/user.service'
 export class AppComponent implements OnInit {
   title = "Bucketlist";
   loggedIn = false;
+  customAnimation:any = {custom:true, state:"", enterDelay: 2000};
 
   constructor(
     private authService: AuthService,
@@ -20,6 +21,6 @@ export class AppComponent implements OnInit {
   ){ }
 
   ngOnInit(){
-    
+
   }
 }

@@ -12,7 +12,7 @@ export class User{
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.css', './../auth.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -32,19 +32,21 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    login(){
+    login() {
 
-        //Logs a user in. Calls the login service.
-        console.log(this.model.email + " " + this.model.password)
-        this.authService.login(this.model.email, this.model.password)
-            .subscribe( response => {
-                if (response.status == "success") {
-                    this.router.navigate([this.returnUrl]);
-                }
-                else {
-                    this.router.navigate(['/auth/login/']);
-                    this.message = response.message;
-                }
-            });
+        const response = this.authService.login(this.model.email, this.model.password);
+
+        if (!response) {
+          return 'No Response';
+        }
+
+        response.subscribe( resp => {
+            if (resp.status === 'success') {
+                this.router.navigate([this.returnUrl]);
+            } else {
+                this.router.navigate(['/auth/login/']);
+                this.message = resp.message;
+            }
+        });
     }
 }

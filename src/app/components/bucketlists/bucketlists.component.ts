@@ -41,15 +41,15 @@ export class BucketlistComponent implements OnInit {
 
     ngOnInit() {
         // Retrieve all bucketlists on component start up.
-        this.getBucketlists(this.pages.current)
+        this.getBucketlists(this.pages.current);
     }
 
     addBucketlist(){
 
-        let response = this.bucketlistsService.addBucketlist(this.model.name)
+        const response = this.bucketlistsService.addBucketlist(this.model.name);
 
         if (!response)
-            return false
+            return false;
 
         response.subscribe(response => {
 
@@ -63,21 +63,18 @@ export class BucketlistComponent implements OnInit {
         });
     }
 
-    getBucketlists(page){
+    getBucketlists(page) {
 
-        let response = this.bucketlistsService.getBucketlists(page);
+        const response = this.bucketlistsService.getBucketlists(page);
 
         if (!response){
-            return "No response";
+            return 'No response';
         }
 
         response.subscribe(response => {
-            console.log("We got there");
-            console.log("Second Component " + response.json());
-
             this.bucketlists = [];
-            let bucketlists = response.json().bucketlists;
-            let links = response.json().links;
+            const bucketlists = response.json().bucketlists;
+            const links = response.json().links;
             this.pages.previous = links[0].id;
             this.pages.next = links[1].id;
             this.pages.current = links[2].id;
@@ -85,7 +82,7 @@ export class BucketlistComponent implements OnInit {
             if (bucketlists) {
                 for (let i = 0; i < bucketlists.length; i++)
                 {
-                    let bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
+                    const bucketlist = this.bucketTools.parseBucketlists(bucketlists[i]);
                     this.bucketlists.push(bucketlist);
                 }
             }
@@ -96,16 +93,18 @@ export class BucketlistComponent implements OnInit {
     }
 
     updateBucketlist(){
-        let id = this.ids.bucket_id;
-        let response = this.bucketlistsService.updateBucketlist(
-            id, this.model.name)
+        console.log('Model: ' + this.model.name);
+
+        const id = this.ids.bucket_id;
+        const response = this.bucketlistsService.updateBucketlist(
+            id, this.model.name);
 
         if (!response)
-            return
+            return;
         response.subscribe(response => {
 
             if (response.status == 401)
-                return this.router.navigate(['/auth/login'])
+                return this.router.navigate(['/auth/login']);
             else if (response.status == 201)
                 this.getBucketlists(this.pages.current);
 
@@ -117,19 +116,19 @@ export class BucketlistComponent implements OnInit {
 
     deleteBucketlist(){
 
-        let id = this.ids.bucket_id;
-        let response = this.bucketlistsService.deleteBucketlists(id)
+        const id = this.ids.bucket_id;
+        const response = this.bucketlistsService.deleteBucketlists(id);
 
         if (!response)
-            return
+            return;
 
         response.subscribe(response => {
 
             if (response.status == 401)
                 this.router.navigate(['/auth/login']);
 
-            else if (response.json().status == "success")
-                this.getBucketlists(this.pages.current)
+            else if (response.json().status == 'success')
+                this.getBucketlists(this.pages.current);
         },
         (err: any) => {
             this.errorHandler(err);
@@ -157,13 +156,14 @@ export class BucketlistComponent implements OnInit {
     onUpdate(bucket){
         this.ids.bucket_id = bucket.id;
         this.model.name = bucket.name;
+        console.log('Bucket: ' + bucket.name);
     }
 
     onDelete(bucket){
         // Save bucketlist id to be deleted if confirmed by user.
-        this.ids.bucket_id = bucket.id
+        this.ids.bucket_id = bucket.id;
     }
-    
+
     onSelect(bucket: BucketList){
         // Redirect to items once bucket is clicked.
         this.selectedBucket = bucket;
@@ -177,8 +177,12 @@ export class BucketlistComponent implements OnInit {
             return this.router.navigate(['/auth/login']);
         }
         else {
-            let url = "error" + error.status;
+            const url = 'error/' + error.status;
             this.router.navigate([url]);
         }
+    }
+
+    onEvent(event) {
+        event.stopPropagation();
     }
 }

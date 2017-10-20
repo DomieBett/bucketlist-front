@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from './../../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css']
+    styleUrls: ['./register.component.css', './../auth.css']
 })
 export class RegisterComponent implements OnInit {
 
@@ -21,12 +21,17 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() { }
 
-    register(){
+    register() {
 
         // Registers user. Calls register service.
-        this.authService.register(this.model.name, this.model.email, this.model.password)
-        .subscribe(
-            data =>{
+        const response = this.authService.register(this.model.name, this.model.email, this.model.password);
+
+        if (!response) {
+          return ('No response');
+        }
+
+        response.subscribe(
+            resp => {
                 this.router.navigate(['/auth/login']);
         });
     }

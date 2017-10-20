@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 
+import { fadeInAnimation } from './../../../animations/fade-in.animation';
+import { trigger, state, animate, transition, style } from '@angular/animations';
+
 import { BucketItemsService } from './../../../services/bucket-items.service';
 import { UserService } from './../../../services/user.service';
 import { BucketToolsService } from './../../../services/bucket-tools.service';
@@ -15,6 +18,20 @@ import { BucketList } from './../../../models/bucketlist';
     selector: 'app-bucket-items',
     templateUrl: './bucket-items.component.html',
     styleUrls: ['./bucket-items.component.css'],
+    animations: [
+      trigger('fadeInAnimation', [
+          // route 'enter' transition
+          transition(':enter', [
+
+              // styles at start of transition
+              style({ opacity: 0 }),
+
+              // animation and styles at end of transition
+              animate('3s', style({ opacity: 1 }))
+          ]),
+      ])
+    ],
+    host: { '[@fadeInAnimation]': '' }
 })
 export class BucketItemsComponent implements OnInit {
 
