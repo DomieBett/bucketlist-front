@@ -1,0 +1,204 @@
+<app-navbar></app-navbar>
+<div>
+    <!-- <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css"> -->
+
+    <!-- <div *ngIf="bucketlists" class="row bucketlists-holder">
+        <div class="bucketlists-div">
+            <h2 class="title">Your Bucketlists</h2>
+            <div class="bucket-holder">
+                <div *ngFor="let bucket of bucketlists"
+                    class="mdl-card mdl-shadow--2dp demo-card-square papers centered row">
+                    <div (click)="onSelect(bucket)" class="col-xs-6">
+                        <div class="mdl-card__title mdl-card--expand">
+                        <h2 class="mdl-card__title-text">{{ bucket.id }}. {{ bucket.name }}</h2>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 bucket-info">
+                        <div>
+                            <div class="mdl-card__supporting-text">
+                                Created by: {{ bucket.created_by }}<br>
+                                Items: {{ bucket.items.length }}
+                            </div>
+                        </div>
+
+                        <div class="mdl-card__actions mdl-card--border">
+                            <a (click)="openModal('update-bucket-modal'); onUpdate(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect edit-button"
+                                data-toggle="tooltip" title="Edit">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                            <a (click)="openModal('delete-bucket-modal'); onDelete(bucket)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect delete-button"
+                                data-toggle="tooltip" title="Delete">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+        <div class="jumbotron bg-faded text-center">
+            <h1 class="text-primary">Your Bucketlists.</h1>
+            <p class="text-muted">Have something you wish to do before you pass on. Let's make those dreams come true.</p>
+        </div>
+
+        <section *ngIf="bucketlists" class="container">
+            <div class="bucketholder">
+                <div class="row">
+                    <div *ngFor="let bucket of bucketlists" (click)="onSelect(bucket)"
+                        class="col-lg-3 col-md-4 col-sm-6 col-xm-12 well circle content carousel slide"
+                        data-toggle="tooltip" title="Bucket List One">
+                        <img src="https://www.rhodiumfloors.com/wp-content/uploads/2015/12/herringbone-rhodium-grey-gray-black-custom-stained-euro-oak-square.jpg"
+                            class="img-responsive img-circle">
+                        <div class="carousel-caption">
+                            {{ bucket.id }}
+                            <input (click)="onEvent($event)" class="edit-bucket form-control text-default"
+                                type="text" [attr.value]="bucket.name" required />
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button (click)="onUpdate(bucket); updateBucketlist();
+                                onEvent($event)"
+                                type="button" class="btn btn-primary">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button (click)="openModal('delete-bucket-modal'); onDelete(bucket);
+                                        onEvent($event)"
+                                    type="button" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xm-12 well circle content carousel slide"
+                         (click)="openModal('add-bucket-modal')">
+                        <img src="https://www.stevemadden.eu/media/amshopby/small156.jpg"
+                            class="img-responsive img-circle">
+                        <div class="carousel-caption">
+                            <h1><span class="glyphicon glyphicon-plus huge-plus"></span></h1>
+                            <h4 class="text-default text-center">Add Bucket List</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="paginate">
+            <div class="paginate-holder wrapper">
+
+                <ul class="pager">
+                    <li><a *ngIf="pages.previous" (click)="getPage(pages.previous)" class="previous">Previous</a></li>
+                    <li><a *ngIf="pages.next" (click)="getPage(pages.next)" class="next">Next</a></li>
+                  </ul>
+            </div>
+        </div>
+
+        <!-- </div>
+    </div> -->
+
+    <!-- <div (click)="openModal('add-bucket-modal')" class="add-button">
+        <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
+    </div> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+    <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Bucketlist</h4>
+                </div>
+                <form (ngSubmit)="addBucketlist()">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="bucketlist-name" [maxlength]="20"
+                                    placeholder="Enter bucket name" [(ngModel)]="model.name"
+                                    #username="ngModel" class="form-control"
+                                    required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" (click)="closeModal('add-bucket-modal')">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <modal id="add-bucket-modal">
+        <div class="custom-modal">
+            <div class="custom-modal-body">
+                <button (click)="closeModal('add-bucket-modal');">Close</button>
+                <h4>Add Bucketlist.</h4>
+                    <form name="form" (ngSubmit)="f.form.valid && addBucketlist()" #f="ngForm" validate>
+                        <div class="form-group">
+                            <label for="name">Bucketlist Name:</label>
+                            <input id="name" name="name"
+                                    type="text" required minlength="5" [(ngModel)]="model.name"
+                                    #username="ngModel" placeholder="Enter bucketlist name"
+                                    class="form-control"/>
+                        </div>
+                        <div>
+                            <button (click)="closeModal('add-bucket-modal')" type="submit"
+                            class="btn btn-primary form-control">Submit</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        <div class="modal-background"></div>
+    </modal>
+
+    <!-- <modal id="update-bucket-modal">
+        <div class="custom-modal">
+            <div class="custom-modal-body">
+                <button (click)="closeModal('update-bucket-modal');">Close</button>
+                <h4>Add Bucketlist Item.</h4>
+                <form name="form" (ngSubmit)="f.form.valid && updateBucketlist()" #f="ngForm" novalidate>
+                    <div class="form-group">
+                        <label for="bucketlist-name">Item Name:</label>
+                        <input id="bucketlist-name" name="bucketlist-name"
+                                type="text" [(ngModel)]="model.name"
+                                #username="ngModel" placeholder="Enter item name"
+                                class="form-control"
+                                required />
+                    </div>
+                    <div>
+                        <button (click)="closeModal('update-bucket-modal')" type="submit"
+                        class="btn btn-primary form-control">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-background"></div>
+    </modal> -->
+
+    <modal id="delete-bucket-modal">
+        <div class="custom-modal">
+            <div class="custom-modal-body">
+                <h4>Delete Bucketlist.</h4>
+                    <form name="form" (ngSubmit)="f.form.valid && deleteBucketlist()" #f="ngForm" novalidate>
+                        <div>
+                            <p>Are you sure you wish to delete this bucketlist?</p>
+                        </div>
+                        <div class="row">
+                            <a (click)="closeModal('delete-bucket-modal');"
+                                class="btn btn-default form-control col-xs-6">Cancel</a>
+                            <button (click)="closeModal('delete-bucket-modal')" type="submit"
+                            class="btn btn-danger form-control col-xs-6">Yes</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        <div class="modal-background"></div>
+    </modal>
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

@@ -1,0 +1,114 @@
+<app-navbar></app-navbar>
+
+<button class="back-button" (click)="goBack()"><i class="fa fa-arrow-circle-left"></i></button>
+
+<div class="container" *ngIf="bucket">
+    <h2> {{ bucket.name }} </h2>
+    <div class="table-holder" *ngIf="bucket.items.length">
+
+        <table class="table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>#</th>
+                    <th> Item name</th>
+                    <th>Done</th>
+                    <th>Tools</th>
+                </tr>
+            </thead>
+            <tbody class="table-striped">
+
+                <tr class="table-row" *ngFor="let item of bucket.items">
+                    <th scope="row"> {{ item.id }} </th>
+                    <td> {{ item.name }} </td>
+                    <td class="done">
+                        <div class="done-holder">
+                            <label for="done">Done</label>
+                            <input type="checkbox" [(ngModel)]="model.done"
+                                    name="done" id="done">
+                        </div></td>
+                    <td class="tool-column">
+                        <div class="tools">
+                            <a (click)="openModal('update-item-modal'); onUpdate(bucket, item)"
+                                class="btn btn-primary edit"><i class="fa fa-pencil-square-o"></i></a>
+                            <a (click)="openModal('delete-item-modal'); onDelete(bucket, item)"
+                                class="btn btn-danger delete"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div (click)="openModal('add-item-modal'); onAdd(bucket)" class="add-button">
+  <i class="fa fa-plus" id="add-button" aria-hidden="true"></i>
+</div>
+
+<modal id="add-item-modal">
+    <div class="custom-modal">
+        <div class="custom-modal-body">
+            <button (click)="closeModal('add-item-modal');">Close</button>
+            <h4>Add Bucketlist Item.</h4>
+            <form name="form" (ngSubmit)="f.form.valid && addItem()" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="bucketlist-name">Item Name:</label>
+                    <input id="bucketlist-name" name="bucketlist-name"
+                            type="text" [(ngModel)]="model.name"
+                            #username="ngModel" placeholder="Enter item name"
+                            class="form-control"
+                            required />
+                </div>
+                <div>
+                    <button (click)="closeModal('add-item-modal')" type="submit"
+                    class="btn btn-primary form-control">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
+
+<modal id="update-item-modal">
+    <div class="custom-modal">
+        <div class="custom-modal-body">
+            <button (click)="closeModal('update-item-modal');">Close</button>
+            <h4>Add Bucketlist Item.</h4>
+            <form name="form" (ngSubmit)="f.form.valid && updateItem()" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="bucketlist-name">Item Name:</label>
+                    <input id="bucketlist-name" name="bucketlist-name"
+                            type="text" [(ngModel)]="model.name"
+                            #username="ngModel" placeholder="Enter item name"
+                            class="form-control"
+                            required />
+                </div>
+                <div>
+                    <button (click)="closeModal('update-item-modal')" type="submit"
+                    class="btn btn-primary form-control">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
+
+<modal id="delete-item-modal">
+    <div class="custom-modal">
+        <div class="custom-modal-body">
+            <h4>Delete Bucketlist.</h4>
+                <form name="form" (ngSubmit)="f.form.valid && delete()" #f="ngForm" novalidate>
+                    <div>
+                        <p>Are you sure you wish to delete this item?</p>
+                    </div>
+                    <div class="row">
+                        <a (click)="closeModal('delete-item-modal');"
+                            class="btn btn-default form-control col-xs-6">Cancel</a>
+                        <button (click)="closeModal('delete-item-modal')" type="submit"
+                        class="btn btn-danger form-control col-xs-6">Yes</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
+<ng-template #empty_bucketlist></ng-template>

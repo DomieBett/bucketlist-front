@@ -1,0 +1,11 @@
+@import '~https://fonts.googleapis.com/css?family=Dancing+Script';
+
+.navbar-brand {
+	font-family: 'Dancing Script', cursive;
+	font-size: 30px;
+}
+
+.form-inline input, .form-inline button{
+	height: 40px;
+	margin: 5px;
+}
