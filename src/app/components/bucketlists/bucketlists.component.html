@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xm-12 well circle content carousel slide"
-                        data-toggle="modal" data-target="#myModal">
+                         (click)="openModal('add-bucket-modal')">
                         <img src="https://www.stevemadden.eu/media/amshopby/small156.jpg"
                             class="img-responsive img-circle">
                         <div class="carousel-caption">
@@ -82,7 +82,7 @@
 
         <div id="paginate">
             <div class="paginate-holder wrapper">
-                
+
                 <ul class="pager">
                     <li><a *ngIf="pages.previous" (click)="getPage(pages.previous)" class="previous">Previous</a></li>
                     <li><a *ngIf="pages.next" (click)="getPage(pages.next)" class="next">Next</a></li>
@@ -109,7 +109,7 @@
                 </div>
                 <form (ngSubmit)="addBucketlist()">
                     <div class="modal-body">
-                    
+
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input type="text" id="name" name="bucketlist-name" [maxlength]="20"
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" (click)="closeModal('add-bucket-modal')">Submit</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form>
