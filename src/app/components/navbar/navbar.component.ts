@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from './../../services/auth.service';
-import { UserService } from './../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
 	selector: 'app-navbar',
@@ -11,21 +11,21 @@ import { UserService } from './../../services/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-	title: string = "Bucketlist";
+	title = 'yourBucky';
 	user_name: string;
-	
+
 	constructor(
-		private authService: AuthService,
-		private router: Router,
-		private user: UserService
+	  private authService: AuthService,
+    private router: Router,
+    private user: UserService
 	) { }
 
 	ngOnInit() {
-		this.user_name = this.user.getName()
+	  this.user_name = this.user.getName();
 	}
 
-	logout(){
-		this.authService.logout();
-		this.router.navigate(['/auth/login']);
+	logout() {
+	  this.authService.logout();
+	  this.router.navigate(['/auth/login']);
 	}
 }
