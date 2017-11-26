@@ -1,0 +1,20 @@
+<div class="modal-container">
+  <div #inputModal class="custom-modal">
+    <div class="custom-modal-content">
+      <div class="custom-modal-heading">
+        <h4 class="title">{{ type }} {{ item }}</h4>
+      </div>
+      <form class="form-horizontal" action="">
+        <div class="form-group">
+          <label class="control-label" for="input"> {{ label }} : </label>
+          <input id="input" class="form-control" type="text" name="input">
+        </div>
+
+        <div class="button-holder">
+          <button class="btn btn-primary accept"> {{ type }} </button>
+          <button class="btn btn-danger reject" (click)="closeModal()">cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

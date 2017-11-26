@@ -13,11 +13,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { BucketlistComponent } from './components/bucketlists/bucketlists.component';
-import { BucketItemsComponent } from './components/bucketlists/bucket-items/bucket-items.component';
 import { ModalComponent } from './directives/modal.component';
 import { SearchComponent } from './components/search/search.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ErrorComponent } from './components/error/error.component';
+import { BucketItemsModalComponent } from './components/bucket-items-modal/bucket-items-modal.component';
+import { InputModalsComponent } from './components/input-modals/input-modals.component';
+import { ConfirmationModalsComponent } from './components/confirmation-modals/confirmation-modals.component';
+import { PaginateComponent } from './components/paginate/paginate.component';
 
 import { BucketlistsService } from './services/bucketlists.service';
 import { BucketItemsService } from './services/bucket-items.service';
@@ -35,11 +38,14 @@ import { ApiService } from './services/api.service';
     LoginComponent,
     RegisterComponent,
     BucketlistComponent,
-    BucketItemsComponent,
     ModalComponent,
     SearchComponent,
     NavbarComponent,
-    ErrorComponent
+    ErrorComponent,
+    BucketItemsModalComponent,
+    InputModalsComponent,
+    ConfirmationModalsComponent,
+    PaginateComponent
   ],
   imports: [
     BrowserModule,

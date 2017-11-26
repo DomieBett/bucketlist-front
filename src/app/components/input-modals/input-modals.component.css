@@ -1,0 +1,20 @@
+.custom-modal {
+    width: 50vw;
+    left: 25vw;
+    min-height: 25vh;
+    height: 25vh;
+    top: 25vh;
+}
+
+.button-holder {
+    float: right;
+}
+
+.btn {
+    width: 150px;
+}
+
+input {
+    float: right; 
+    width: 90%
+}

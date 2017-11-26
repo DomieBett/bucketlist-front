@@ -1,0 +1,13 @@
+ul {
+    padding: 3px;
+}
+
+ul li {
+    display: inline-block;
+    list-style-type: none;
+}
+
+.current {
+    transform: scale(1.2);
+    z-index: 10;
+}

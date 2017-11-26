@@ -1,0 +1,19 @@
+<div>
+  <ul>
+    <li>
+      <button [disabled]="!pages.previous" (click)="getPage(pages.previous)" class="btn">Previous</button>
+    </li>
+    <li>
+      <button (click)="getPage(1)" *ngIf="pages.previous"  class="btn">1</button>
+    </li>
+    <li>
+      <button [disabled]="true" class="btn current">{{ pages.current }}</button>
+    </li>
+    <li *ngIf="pages.next" >
+      <button (click)="getPage(pages.total)" class="btn">{{ pages.total }}</button>
+    </li>
+    <li>
+      <button [disabled]="!pages.next" (click)="getPage(pages.next)" class="btn">Next</button>
+    </li>
+  </ul>
+</div>

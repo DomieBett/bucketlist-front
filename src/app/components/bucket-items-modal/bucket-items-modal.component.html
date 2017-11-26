@@ -1,0 +1,32 @@
+<div class="modal-container">
+  <div #itemModal class="custom-modal">
+    <div class="custom-modal-heading">
+      <h4 class="title">{{ bucket.name }}</h4>
+    </div>
+    <div class="custom-modal-content">
+      <table *ngIf="items.length > 0" >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items" >
+            <td class="item-name">{{ item.name }}</td>
+            <td class="item-status">{{ item.done ? 'Y' : 'N'}}</td>
+            <td class="item-toggle">
+              <button class="btn btn-primary">
+                {{ item.done ? 'Undo' : 'Complete' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="items.length === 0" >
+        This bucket appears to have no items. Click the add button to start bucketing. Enjoy ;).
+      </div>
+    </div>
+  </div>
+</div>

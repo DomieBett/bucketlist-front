@@ -1,4 +1,4 @@
-export class Item{
+export class Item {
   id: number;
   name: string;
   date_created: string;
@@ -15,7 +15,7 @@ export class Item{
   }
 }
 
-export class BucketList{
+export class BucketList {
   id: number;
   name: string;
   items: Item[];
@@ -25,7 +25,7 @@ export class BucketList{
 
   constructor(id: number, name: string, items: Item[],
               date_created: string, date_modified: string,
-              created_by: string){
+              created_by: string) {
       this.id = id;
       this.name = name;
       this.items = items;

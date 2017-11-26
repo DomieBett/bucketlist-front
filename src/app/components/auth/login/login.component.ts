@@ -32,6 +32,9 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
+    /**
+     * Calls service to log in user
+     */
     login() {
 
         const response = this.authService.login(this.model.email, this.model.password);

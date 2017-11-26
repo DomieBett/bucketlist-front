@@ -9,7 +9,8 @@ import { UserService } from './user.service';
 export class ApiService {
 
     message: string;
-    baseUrl = 'https://bett-bucketlist.herokuapp.com';
+    // baseUrl = 'https://bett-bucketlist.herokuapp.com';
+    baseUrl = 'http://127.0.0.1:5000';
 
     constructor(
       private http: Http,

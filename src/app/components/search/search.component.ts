@@ -25,17 +25,16 @@ export class SearchComponent {
 
     this.searchService.search(this.searchTerm$)
       .subscribe(results => {
-        if (this.searchQuery.length > 0){
+        if (this.searchQuery.length > 0) {
           this.bucketlists = results.bucketlists;
-        }
-        else {
-          this.bucketlists = "";
+        } else {
+          this.bucketlists = '';
         }
       });
   }
 
   openBucket(bucket_id) {
-    let url = "/bucketlists/" + bucket_id + "/items/";
+    const url = '/bucketlists/' + bucket_id + '/items/';
     this.router.navigate([url]);
   }
 }
