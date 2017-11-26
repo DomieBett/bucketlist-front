@@ -1,0 +1,59 @@
+.modal-container {
+    display: block;
+    position: fixed;
+    z-index: 12;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-left: 20vw;
+    padding-top: 20vh;
+}
+  
+.custom-modal {
+    margin: 0 auto;
+    box-sizing: content-box;
+    position: fixed;
+    z-index: 13;
+    width: 60%;
+    min-height: 70%;
+    max-height: 70%;
+    height: auto;
+    top: 5%;
+    left: 15%;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
+    padding: 5%;
+    overflow-y: auto;
+}
+
+.custom-modal-heading {
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    color: #3359db;
+}
+  
+.custom-modal-content {
+    margin-top: 30px;
+    line-height: 25px;
+}
+
+.table {
+    width: 100%;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 1.3em;
+    border-collapse: collapse;
+    border-spacing: 0 10px;
+}
+
+td {
+    padding: 10px;
+}
+
+table tr td:nth-child(1) {
+    width: 75%;
+}

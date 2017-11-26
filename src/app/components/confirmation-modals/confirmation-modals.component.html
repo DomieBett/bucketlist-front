@@ -1,0 +1,16 @@
+<div class="modal-container">
+  <div #confirmationModal class="custom-modal">
+    <div class="custom-modal-content">
+      <h4 class="title">{{ type }} {{ item }}</h4>
+      <p *ngIf="type==='delete'">
+        Are you sure you wish to delete {{ item }}?
+      </p>
+    </div>
+    <div class="custom-modal-footer">
+      <div class="button-holder">
+        <button class=" btn btn-primary accept"> {{ type }} </button>
+        <button class="btn btn-danger reject" (click)="closeModal()">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

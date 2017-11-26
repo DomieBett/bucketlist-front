@@ -1,76 +1,16 @@
-/*@import '~https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css';
-
-body {
-    padding: 20px;
-    position: relative;
+.wrapper {
+    margin-top: 70px;
 }
 
-.bucketlists-holder {
-    margin: 5px auto;
-}
-
-.bucket-holder {
+.jumbotron {
     margin: 0 auto;
-    border-radius: 1px;
-    position: relative;
-    overflow: auto;
-    text-align: center;
+    width: 80vw;
+    padding: 1vh;
 }
 
-.bucket-info {
-    height: 100%;
-    border-left: 1px solid rgba(0,0,0,.1);
+.container {
+    max-height: 60vh;
 }
-
-.title {
-    color: white;
-    text-align: center;
-    padding: 5px;
-    font-family: 'Indie Flower';
-}
-
-.centered {
-    display: inline-block;
-}
-
-.close {
-    float: right;
-}
-
-.demo-card-square.mdl-card {
-    min-width: 300px;
-    width: 40%;
-    height: 200px;
-    margin: 1rem;
-    position: relative;
-}
-
-.demo-card-square.mdl-card:hover {
-    transform: scale(1.01);
-    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14),
-     0 3px 14px 2px rgba(0, 0, 0, .12),
-     0 5px 5px -3px rgba(0, 0, 0, .2);
-}
-
-.demo-card-square > .mdl-card__title {
-    color: #fff;
-    background: #03a9f4;
-}
-
-.demo-card-square > .mdl-card__accent {
-    background: #ff9800;
-}
-
-.search-div {
-    height: 90vh;
-    border-left: 1px solid;
-}
-
-.bucketlists-div {
-    height: 90vh;
-    overflow: scroll;
-}
-*/
 
 .bucketholder {
     margin: 0 auto;
@@ -82,20 +22,7 @@ body {
     margin: 10px auto;
     padding: 0px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-    animation: 2s ease-out slideInFromLeft;
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+    animation: 0.5s ease-out fadeIn;
 }
 
 .circle:hover {
@@ -121,98 +48,24 @@ body {
     background-color: #000;
 }
 
-modal {
-    /* modals are hidden by default */
-    display: none;
-}
-
-.custom-modal {
-    /* modal container fixed across whole screen */
+.footer-bar {
+    background: black;
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    /* z-index must be higher than .modal-background */
-    z-index: 1000;
-
-    /* enables scrolling for tall modals */
-    overflow: auto;
-}
-
-.custom-modal-body {
-    padding: 20px;
-    background: #fff;
-
-    /* margin exposes part of the modal background */
-    margin: 20%;
-}
-
-.modal-background {
-    /* modal background fixed across whole screen */
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    /* semi-transparent black  */
-    background-color: #000;
-    opacity: 0.75;
-
-    /* z-index must be below .modal and above everything else  */
-    z-index: 900;
-}
-
-body.modal-open {
-    /* body overflow is hidden to hide main scrollbar when modal window is open */
-    overflow: hidden;
-}
-
-
-#paginate {
-    clear: both;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-}
-
-#paginate div ul li{
-    display: inline-block;
+    width: 100vw;
+    height: 50px;
     padding: 5px;
-    margin: 5px;
+    margin: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
 }
 
-.papers,.papers:before,.papers:after {
-    background-color:#fff;
-    border:1px solid #ccc;
-    box-shadow:inset 0 0 30px rgba(0,0,0,0.1),1px 1px 3px rgba(0,0,0,0.2);
-}
-.papers {
-    position:relative;
-    width:90%;
-    padding:2em;
-    margin:0px auto;
-    margin-top:40px;
-    font-size:12px;
-    /*border: 1px solid #1f7f5c;*/
-}
-.papers:before,.papers:after {
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    -webkit-transform:rotateZ(0.5deg);
-    -o-transform:rotate(0.5deg);
-    transform:rotateZ(0.5deg);
-    z-index:-1;
-    /*background-color:  #1f7f5c; */
-}
-.papers:after {
-    -webkit-transform:rotateZ(-0.5deg);
-    -o-transform:rotate(-0.5deg);
-    transform:rotateZ(-0.5deg);
+.custom-pagination {
+    float: left;
+    width: 30vw;
+    min-width: 300px;
+    height: 40px;
+    margin-left: 30vw;
+    text-align: center;
+    position: relative;
 }

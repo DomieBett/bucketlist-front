@@ -1,5 +1,9 @@
 @import '~https://fonts.googleapis.com/css?family=Dancing+Script';
 
+.navbar {
+	z-index: 5;
+}
+
 .navbar-brand {
 	font-family: 'Dancing Script', cursive;
 	font-size: 30px;

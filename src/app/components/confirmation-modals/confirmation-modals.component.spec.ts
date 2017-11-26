@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BucketlistItemsComponent } from './bucketlist-items.component';
+import { ConfirmationModalsComponent } from './confirmation-modals.component';
 
-describe('BucketlistItemsComponent', () => {
-  let component: BucketlistItemsComponent;
-  let fixture: ComponentFixture<BucketlistItemsComponent>;
+describe('ConfirmationModalsComponent', () => {
+  let component: ConfirmationModalsComponent;
+  let fixture: ComponentFixture<ConfirmationModalsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BucketlistItemsComponent ]
+      declarations: [ ConfirmationModalsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BucketlistItemsComponent);
+    fixture = TestBed.createComponent(ConfirmationModalsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

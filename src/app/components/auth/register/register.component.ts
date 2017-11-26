@@ -21,6 +21,9 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() { }
 
+    /**
+     * Calls service to register user.
+     */
     register() {
 
         // Registers user. Calls register service.

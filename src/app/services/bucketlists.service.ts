@@ -12,6 +12,7 @@ import { ApiService } from './api.service';
 export class BucketlistsService {
 
     bktlists: BucketList[] = [];
+    bucketsLimit = 8;
 
     constructor(
         private http: Http,
@@ -27,10 +28,11 @@ export class BucketlistsService {
         const args = { name: name };
         const response = this.api.sendRequest('post', url, args);
 
-        if (response)
+        if (response) {
             return response.map(response => response);
-        else
+        } else {
             return response;
+        }
     }
 
     updateBucketlist(id, name) {
@@ -39,10 +41,11 @@ export class BucketlistsService {
         const args = { name: name };
         const response = this.api.sendRequest('put', url, args);
 
-        if (response)
+        if (response) {
             return response.map(response => response);
-        else
+        } else {
             return response;
+        }
     }
 
     deleteBucketlists(id) {
@@ -50,24 +53,26 @@ export class BucketlistsService {
         const url = '/bucketlists/' + id;
         const response = this.api.sendRequest('delete', url, null);
 
-        if (response)
+        if (response) {
             return response.map(response => response);
-        else
+        } else {
             return response;
+        }
     }
 
-    getBucketlists(page){
+    getBucketlists(page) {
 
-        let url = '/bucketlists';
+        let url = '/bucketlists' + '/?limit=' + this.bucketsLimit;
         if (page > 1) {
-            url = url + '/?page=' + page;
+            url = url + '&page=' + page;
         }
         const response = this.api.sendRequest('get', url, null);
 
-        if (response)
+        if (response) {
             return response.map(response => response);
-        else
+        } else {
             return response;
+        }
     }
 }
 

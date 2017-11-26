@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { BucketlistItemsService } from './bucket-items.service';
+import { BucketItemsService } from './bucket-items.service';
 
 describe('BucketlistItemsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BucketlistItemsService]
+      providers: [BucketItemsService]
     });
   });
 
-  it('should be created', inject([BucketlistItemsService], (service: BucketlistItemsService) => {
+  it('should be created', inject([BucketItemsService], (service: BucketItemsService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -8,33 +8,31 @@ import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
   styleUrls: ['./error.component.css']
 })
 export class ErrorComponent implements OnInit {
-	status_code: number;
-	status_text: string;
+  status_code: number;
+  status_text: string;
 
-	errors = {
-		not_found: [404, "This page is unavailable"]
-	}
+  errors = {
+    not_found: [404, 'This page is unavailable']
+  };
 
-	constructor(
-		private route: ActivatedRoute,
-	) { }
+  constructor(
+    private route: ActivatedRoute,
+  ) { }
 
-	ngOnInit() {
+  ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      this.displayErrors(params['status']);
+    });
+  }
 
-		this.route.params.subscribe((params: Params) => {
-            this.displayErrors(params['status']);
-            console.log(params['status']);
-        });
-	}
+  displayErrors(status) {
+    if (status === 404) {
+      this.selectErrors(this.errors.not_found);
+    }
+  }
 
-	displayErrors(status) {
-		if (status == 404){
-			this.selectErrors(this.errors.not_found)
-		}
-	}
-
-	selectErrors(error){
-		this.status_code = error[0];
-		this.status_text = error[1];
-	}
+  selectErrors(error) {
+    this.status_code = error[0];
+    this.status_text = error[1];
+  }
 }

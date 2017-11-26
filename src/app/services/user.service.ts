@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 import { BucketList, Item } from './../models/bucketlist';
 
@@ -13,25 +13,25 @@ export class UserService {
   constructor(
       private http: Http,
       private router: Router
-   ){ }
+   ) { }
 
-    getToken(){
-        let authToken = localStorage.getItem('auth_token');
-        let headers = new Headers({ 'Accept': 'application/json' });
-        if (authToken){
+    getToken() {
+        const authToken = localStorage.getItem('auth_token');
+        const headers = new Headers({ 'Accept': 'application/json' });
+        if (authToken) {
             headers.append('Authorization', authToken);
             return new RequestOptions({ headers: headers });
-        }
-        else{
-            return false
+        } else {
+            return false;
         }
     }
 
-    getName(){
-      let user_name:string = localStorage.getItem('user_name');
-      if (user_name)
+    getName() {
+      const user_name: string = localStorage.getItem('user_name');
+      if (user_name) {
         return user_name;
-      else
-        return "Guest";
+      } else {
+        return 'Guest';
+      }
     }
 }

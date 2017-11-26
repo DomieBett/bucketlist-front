@@ -5,7 +5,6 @@ import { AppComponent } from './../app.component';
 import { RegisterComponent } from './../components/auth/register/register.component';
 import { LoginComponent } from './../components/auth/login/login.component';
 import { BucketlistComponent } from './../components/bucketlists/bucketlists.component';
-import { BucketItemsComponent } from './../components/bucketlists/bucket-items/bucket-items.component';
 import { ErrorComponent } from './../components/error/error.component';
 
 
@@ -21,9 +20,6 @@ const routes: Routes = [
     },
     {
         path: 'bucketlists', component: BucketlistComponent
-    },
-    {
-        path: 'bucketlists/:id/items', component: BucketItemsComponent
     },
     {
         path: 'error/:status', component: ErrorComponent
